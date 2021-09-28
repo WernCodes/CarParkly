@@ -1,0 +1,8 @@
+@import '~antd/dist/antd.css';
+.ant-page-header-heading {
+    font: 70px "SFMono-Regular", Futura, sans-serif;
+    margin: 20px;
+    justify-content: center;
+    color: #FDA172;
+    font-weight: bold;
+}
