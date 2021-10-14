@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ButtonFunction from "./shared/button";
-import TitleCard from "./shared/title";
-import SearchBar from "./shared/searchBar";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Home from "./components/home/home";
+import Navigation from "./components/navigation/navigation";
 
 function Square(props) {
     return (
@@ -107,31 +107,46 @@ class Game extends React.Component {
         }
         document.body.style.backgroundColor = "#41b3a3";
         return (
-            <div className="game" >
-                <div className ="header">
-                    <TitleCard  text = {"Welcome to CarParkly!"}/>
+            <Router>
+                <div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/navigation">Navigation</Link>
+                            </li>
+                            <li>
+                                <Link to="/cuisine">Cuisine</Link>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+                    <Switch>
+                        <Route path="/navigation">
+                            <NavigationCard />
+                        </Route>
+                        <Route path="/">
+                            <HomeCard />
+                        </Route>
+                    </Switch>
                 </div>
-                <div className = "searchBar">
-                    <SearchBar/>
-                </div>
-                <div className= "buttonSection">
-                    <ButtonFunction value = {"Navigation"}/>
-                    <ButtonFunction value = {"Car Park Charge Calculator"}/>
-                </div>
-                <div className="game-board">
-                    <Board
-                        squares={current.squares}
-                        onClick = {(i) => this.handleClick(i)}
-                    />
-                </div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <ol>{moves}</ol>
-                </div>
-            </div>
+            </Router>
+
         );
     }
 }
+function HomeCard() {
+    return <Home />;
+}
+
+function NavigationCard() {
+    return <Navigation />;
+}
+
 
 function calculateWinner(squares) {
     const lines = [

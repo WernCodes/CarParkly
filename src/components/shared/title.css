@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import '../../../node_modules/antd/dist/antd.css';
 .ant-page-header-heading {
     font: 70px "SFMono-Regular", Futura, sans-serif;
     margin: 20px;
