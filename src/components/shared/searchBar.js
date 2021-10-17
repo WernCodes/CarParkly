@@ -8,9 +8,9 @@ const { Search } = Input;
 function SearchBar(props) {
     return(
     <>
-        <Search placeholder="Search Car Parks Or Destination"
+        <Search placeholder={props.placeholder}
                 prefix={
-                    <Tooltip title="Key in Destination names or Car Park locations">
+                    <Tooltip title={props.tooltip}>
                     <SearchOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                     </Tooltip>}
                 enterButton="Search"

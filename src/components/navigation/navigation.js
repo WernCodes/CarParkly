@@ -1,15 +1,44 @@
 import TitleCard from "../shared/title";
 import React from "react";
 import './navigation.css';
+import SearchBar from "../shared/searchBar";
+import SearchFilters from "./search_filters/searchFilters";
+import CarparkList from "./carpark_list/carparkList";
+import MapContainer from "./gMapsView/gMapsView";
 
-function Navigation(props) {
-    return (
-        <div className="game" >
-            <div className ="header">
-                <TitleCard  text = {"Welcome to the second page!"}/>
+class Navigation extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render() {
+        return (
+            <div className="navigationPage">
+                <div className ="header">
+                    <TitleCard  text = {"Navigate"}/>
+                </div>
+                <div className="pageBody">
+                    <div className="searchSection">
+                        <div className="destinationBar">
+                            <div className = "destinationInput">
+                                <SearchBar placeholder = "Destination" tooltip = "Key in your desired destination"/>
+                            </div>
+                        </div>
+                        <div className="searchFilters">
+                            <SearchFilters/>
+                        </div>
+                    </div>
+                    <div className="carparkSection">
+                        <div className="carparks">
+                            <CarparkList/>
+                        </div>
+                        <div className="gMaps">
+                            <MapContainer/>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Navigation;

@@ -16,7 +16,7 @@ class Home extends React.Component{
                     <TitleCard  text = {"Welcome to CarParkly!"}/>
                 </div>
                 <div className = "searchBar">
-                    <SearchBar/>
+                    <SearchBar placeholder = "Search Car Parks Or Destination" tooltip = "Key in Destination names or Car Park locations"/>
                 </div>
                 <div className= "buttonSection">
                     <ButtonFunction value = {"Navigation"} navigate={"navigation"}/>

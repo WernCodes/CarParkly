@@ -109,19 +109,6 @@ class Game extends React.Component {
         return (
             <Router>
                 <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/navigation">Navigation</Link>
-                            </li>
-                            <li>
-                                <Link to="/cuisine">Cuisine</Link>
-                            </li>
-                        </ul>
-                    </nav>
 
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
