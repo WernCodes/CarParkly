@@ -10,6 +10,9 @@ class Navigation extends React.Component{
     constructor(props){
         super(props);
     }
+    handleSearch(e){
+        console.log(e);
+    }
     render() {
         return (
             <div className="navigationPage">
@@ -20,7 +23,7 @@ class Navigation extends React.Component{
                     <div className="searchSection">
                         <div className="destinationBar">
                             <div className = "destinationInput">
-                                <SearchBar placeholder = "Destination" tooltip = "Key in your desired destination"/>
+                                <SearchBar handleSearch = {this.handleSearch} placeholder = "Destination" tooltip = "Key in your desired destination"/>
                             </div>
                         </div>
                         <div className="searchFilters">

@@ -1,5 +1,6 @@
 import React from 'react';
 import './carparkList.css';
+import CarparkCard from "./carpark_card/carparkCard";
 
 class CarparkList extends React.Component{
     constructor(props) {
@@ -9,8 +10,7 @@ class CarparkList extends React.Component{
     render(){
         return(
             <div className="box">
-                Sample Box
-                {/* insert car park cards */}
+                <CarparkCard/>
             </div>
         );
     }

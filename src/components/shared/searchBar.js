@@ -16,7 +16,7 @@ function SearchBar(props) {
                 enterButton="Search"
                 maxLength = "50"
                 size="large"
-                onSearch = {(value) => console.log(value)}
+                onSearch = {(value) => {props.handleSearch(value)}}
         />
     </>
     );

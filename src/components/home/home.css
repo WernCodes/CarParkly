@@ -69,6 +69,8 @@ ol, ul {
 }
 
 .buttonSection{
+    column-count: 2;
+    column-gap: 20px;
     display: flex;
     margin-left: 250px;
     margin-right: 250px;

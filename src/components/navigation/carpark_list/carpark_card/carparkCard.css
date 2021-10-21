@@ -1,0 +1,18 @@
+.card{
+    display: flex;
+}
+
+.name_and_lots{
+    border-color: black;
+    border-right: solid;
+    width: 40%;
+}
+.view{
+    border-color: black;
+    border-right: solid;
+    width: 30%;
+}
+.navigate{
+    border-color: black;
+    width: 30%;
+}

@@ -8,7 +8,7 @@ body {
 
 }
 .pageBody{
-    padding: 50px 250px 150px;
+    padding: 25px 250px 150px;
 }
 
 .searchSection{
@@ -32,13 +32,17 @@ body {
 
 .carparkSection{
     display: flex;
-    justify-content: space-between;
+}
+
+.carparks{
+    float: left;
+    flex: 3;
+    width: 30%;
+    padding-right: 2rem;
 }
 
 .gMaps{
-    margin: 50px;
-    width: 500px;
-    height: 500px;
+    float: right;
 }
 
 .header {
@@ -46,18 +50,4 @@ body {
     justify-content: center;
     align-items: center;
     height: 200px;
-}
-
-.searchBar {
-    margin-bottom: 25px;
-    margin-left: 250px;
-    margin-right: 250px;
-}
-
-.buttonSection{
-    display: flex;
-    margin-left: 250px;
-    margin-right: 250px;
-    justify-content: space-evenly;
-    flex: 2;
 }

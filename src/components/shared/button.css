@@ -1,4 +1,9 @@
 @import '../../../node_modules/antd/dist/antd.css';
 .button{
-    width: 250px;
+    width: 100%;
+    height: 100%;
+}
+.ant-btn {
+    width: 100%;
+    height: 100%;
 }

@@ -2,11 +2,21 @@ import TitleCard from "../shared/title";
 import SearchBar from "../shared/searchBar";
 import ButtonFunction from "../shared/button";
 import React from "react";
+import NaviButtonFunction from "../shared/navi_button";
+import './home.css';
 
 
 class Home extends React.Component{
     constructor(props){
         super(props);
+    }
+
+    handleClick(e){
+        console.log('I am clicked!');
+    }
+
+    handleSearch(e){
+        console.log(e);
     }
 
     render(){
@@ -16,11 +26,11 @@ class Home extends React.Component{
                     <TitleCard  text = {"Welcome to CarParkly!"}/>
                 </div>
                 <div className = "searchBar">
-                    <SearchBar placeholder = "Search Car Parks Or Destination" tooltip = "Key in Destination names or Car Park locations"/>
+                    <SearchBar handleSearch = {this.handleSearch} placeholder = "Search Car Parks Or Destination" tooltip = "Key in Destination names or Car Park locations"/>
                 </div>
                 <div className= "buttonSection">
-                    <ButtonFunction value = {"Navigation"} navigate={"navigation"}/>
-                    <ButtonFunction value = {"Car Park Charge Calculator"}/>
+                    <NaviButtonFunction value = {"Navigation"} navigate={"navigation"}/>
+                    <ButtonFunction value = {"Car Park Charge Calculator"} handleClick = {this.handleClick}/>
                 </div>
             </div>
         );
