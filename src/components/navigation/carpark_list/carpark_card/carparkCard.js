@@ -6,6 +6,12 @@ import ButtonFunction from "../../../shared/button";
 class CarparkCard extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            Id: this.props.carparkId,
+            Name: this.props.name,
+            AvailableLots: this.props.availableLots,
+            Location: this.props.location
+        }
     }
 
     handleNavigateClick(e){
@@ -20,15 +26,13 @@ class CarparkCard extends React.Component{
             });
     }
 
-    apiCall(){
 
-    }
     render(){
         return(
             <div className="card">
                 <div className="name_and_lots">
-                    <div>Carpark Name</div>
-                    <div>Available lots: 20</div>
+                    <div>{this.state.Name}</div>
+                    <div>Available lots: {this.state.AvailableLots}</div>
                 </div>
                 <div className="view" >
                     <NaviButtonFunction value = {"View"} navigate={"carparkID"}/>

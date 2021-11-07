@@ -4,6 +4,7 @@ import './index.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from "./components/home/home";
 import Navigation from "./components/navigation/navigation";
+import CarparkDetails from "./components/carparkDetails/carparkDetails";
 
 function Square(props) {
     return (
@@ -113,6 +114,9 @@ class Game extends React.Component {
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                     <Switch>
+                        <Route path="/carpark">
+                            <CarparkCard />
+                        </Route>
                         <Route path="/navigation">
                             <NavigationCard />
                         </Route>
@@ -132,6 +136,10 @@ function HomeCard() {
 
 function NavigationCard() {
     return <Navigation />;
+}
+
+function CarparkCard() {
+    return <CarparkDetails />;
 }
 
 

@@ -1,5 +1,10 @@
 .box{
     border-color: black;
     border-style: solid;
+    border-bottom: none;
     width: 100%;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
 }
