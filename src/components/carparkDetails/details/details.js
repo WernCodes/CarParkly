@@ -9,16 +9,13 @@ import CostCalculator from "./costCalculator/costCalculator";
 class Details extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            Address: null,
-            AvailableLots: 0
-        }
+        this.state = props.values
     }
 
     render() {
         return (
             <div className="details">
-                <Address/>
+                <Address lat = {this.state.lat} long = {this.state.long} value = {"Open location in Google Maps"}/>
                 <Availability/>
                 <CostCalculator/>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './carparkCard.css';
-import NaviButtonFunction from "../../../shared/navi_button";
 import ButtonFunction from "../../../shared/button";
+import NaviButtonWithParamsFunction from "../../../shared/navi_button_with_params";
 
 class CarparkCard extends React.Component{
     constructor(props) {
@@ -14,7 +14,7 @@ class CarparkCard extends React.Component{
         }
     }
 
-    handleNavigateClick(e){
+    handleNavigateClick(){
         fetch("http://192.168.0.120:8080/api/students", {
             method: "GET",
         })
@@ -35,7 +35,7 @@ class CarparkCard extends React.Component{
                     <div>Available lots: {this.state.AvailableLots}</div>
                 </div>
                 <div className="view" >
-                    <NaviButtonFunction value = {"View"} navigate={"carparkID"}/>
+                    <NaviButtonWithParamsFunction value = {"View"} navigate={"carpark"} state = {this.state}/>
                 </div>
                 <div className="navigate" >
                     {/* TODO add in button function */}

@@ -1,50 +1,63 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './carparkDetails.css';
 import TitleCard from "../shared/title";
 import RouteNavigation from "../shared/routeNavigation";
 import Details from "./details/details";
+import {useLocation} from 'react-router-dom';
 
-
-class CarparkDetails extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            Id: this.props.carparkId,
-            Name: this.props.name,
-            Address: null,
-            AvailableLots: 0,
-            Video: false,
-            VideoLink: null
-        }
-    }
-    componentDidMount(){
+const CarparkDetails = () =>{
+    //TODO set to true when implementing API
+    const [isLoading, setLoading] = useState(false);
+    const location = useLocation();
+    const state = {
+        carparkId: location.state.Id,
+        name: location.state.Name,
+        availableLots: null,
+        totalLots:null,
+        lat: null,
+        long: null
+    };
+    useEffect(() => {
         fetch("http://192.168.0.120:8080/api/students", {
             method: "GET",
         })
             .then(response => response.json())
-            .then(response => console.log(response)
-            )
+            .then(response => console.log(response))
+            .then(response => setLoading(true))
             .catch(err => {
                 console.log(err);
             });
+    },[]);
+
+    if (isLoading) {
+        return <div className="carparkDetails">
+            <TitleCard  text = "Loading..."/>
+        </div>;
     }
 
-    render() {
-        if(!this.state.id){
-            RouteNavigation("")
-        }
-        return (
-            <div className="carparkDetails">
-                <TitleCard  text = {this.state.Name}/>
-                <Details/>
-                {/* TODO add in YT function */}
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/HProPpW1E-8"
-                title="YouTube video player" frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen/>
-                {/* TODO add in Community function */}
-            </div>
-        );
+    if(!state.carparkId){
+        console.log("going home");
+        return (RouteNavigation(""))
     }
+
+    return (
+        <div className="carparkDetails">
+            <TitleCard  text = {state.name}/>
+            <div className="detailsAndYT">
+                <div className="detailsAndLinks">
+                    <Details values ={state}/>
+                    {/* TODO add in YT function */}
+                </div>
+                <div className = "YT">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/onOY6tg3y24"
+                            title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen/>
+                </div>
+            </div>
+
+            {/* TODO add in Community function */}
+        </div>
+    );
 }
 export default CarparkDetails;

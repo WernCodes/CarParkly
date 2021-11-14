@@ -1,0 +1,11 @@
+.detailsAndYT{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.detailsAndLinks{
+    width: 30%;
+    padding-right: 2rem;
+}
+.YT{
+}
