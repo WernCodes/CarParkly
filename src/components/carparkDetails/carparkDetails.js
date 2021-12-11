@@ -4,6 +4,7 @@ import TitleCard from "../shared/title";
 import RouteNavigation from "../shared/routeNavigation";
 import Details from "./details/details";
 import {useLocation} from 'react-router-dom';
+import ReviewsList from "./reviews/reviews";
 
 const CarparkDetails = () =>{
     //TODO set to true when implementing API
@@ -15,7 +16,8 @@ const CarparkDetails = () =>{
         availableLots: null,
         totalLots:null,
         lat: null,
-        long: null
+        long: null,
+        agency: null,
     };
     useEffect(() => {
         fetch("http://192.168.0.120:8080/api/students", {
@@ -56,7 +58,9 @@ const CarparkDetails = () =>{
                 </div>
             </div>
 
-            {/* TODO add in Community function */}
+            <div className='communityReviews'>
+                <ReviewsList values = {state}/>
+            </div>
         </div>
     );
 }

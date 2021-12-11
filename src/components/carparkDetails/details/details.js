@@ -2,7 +2,7 @@ import React from "react";
 import './details.css';
 import Address from "./address/address";
 import Availability from "./availability/availability";
-import CostCalculator from "./costCalculator/costCalculator";
+import NaviButtonWithParamsFunction from "../../shared/navi_button_with_params";
 
 
 
@@ -15,9 +15,9 @@ class Details extends React.Component{
     render() {
         return (
             <div className="details">
-                <Address lat = {this.state.lat} long = {this.state.long} value = {"Open location in Google Maps"}/>
-                <Availability/>
-                <CostCalculator/>
+                <div className="address"> <Address lat = {this.state.lat} long = {this.state.long} value = {"Open location in Google Maps"}/> </div>
+                <div className="availability"> <Availability carparkId = {this.state.carparkId} agency = {this.state.agency}/> </div>
+                <div className="costCalculator"> <NaviButtonWithParamsFunction value = {"Cost Calculator"} navigate={"costCalculator"} state = {this.state}/> </div>
             </div>
         );
     }

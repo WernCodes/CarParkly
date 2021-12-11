@@ -4,7 +4,7 @@ import './button.css'
 import {useHistory} from "react-router-dom";
 
 function NaviButtonWithParamsFunction(props) {
-        const history = useHistory();
+    const history = useHistory();
     function HandleClick(navigationRoute, stateValues) {
 
         console.log("CLICKED with params!")

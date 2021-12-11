@@ -1,0 +1,25 @@
+.card{
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.user{
+    margin-top: 10px;
+    align-content: center;
+}
+.icon{
+    display:inline-block;
+    margin-right:10px;
+}
+.name{
+    display:inline-block;
+    font-weight: bold;
+}
+.rating{
+    margin-top: 10px;
+}
+
+.reviewText{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
