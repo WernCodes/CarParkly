@@ -30,6 +30,7 @@ class Home extends React.Component{
                 </div>
                 <div className= "buttonSection">
                     <NaviButtonFunction value = {"Navigation"} navigate={"navigation"}/>
+                    {/* TODO add car park charge calculator link*/}
                     <ButtonFunction value = {"Car Park Charge Calculator"} handleClick = {this.handleClick}/>
                 </div>
             </div>

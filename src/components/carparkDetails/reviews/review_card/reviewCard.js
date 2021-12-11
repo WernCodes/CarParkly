@@ -32,7 +32,7 @@ class ReviewCard extends React.Component{
 
     render(){
         return(
-            <div className="card">
+            <div className="reviewCard">
                 <div className="user">
                     <div className="icon"><Avatar size="large" icon={<UserOutlined />} /></div>
                     <div className="name">{this.state.User}</div>

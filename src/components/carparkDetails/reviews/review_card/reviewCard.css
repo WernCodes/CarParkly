@@ -1,7 +1,8 @@
-.card{
+.reviewCard {
     padding-left: 10px;
     display: flex;
     flex-direction: column;
+    border-bottom: 3px solid black;
 }
 .user{
     margin-top: 10px;
