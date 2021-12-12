@@ -94,6 +94,7 @@ class ReviewsList extends React.Component{
     render(){
         const reviewA = {
             CarparkId: 'A',
+            CommentId: '123',
             User: "John",
             Rating: 4,
             ReviewText: "Carpark is spacious",
@@ -101,6 +102,7 @@ class ReviewsList extends React.Component{
         }
         const reviewB = {
             CarparkId: 'B',
+            CommentId: '456',
             User: "Bob",
             Rating: 3,
             ReviewText: "Carpark is narrow",
@@ -142,7 +144,7 @@ class ReviewsList extends React.Component{
         // TODO remove this line once api works
         this.reviews = [reviewA, reviewB];
         let itemList=this.reviews.map((review,index) =>
-            <ReviewCard carparkId = {review.CarparkId} user = {review.User} rating = {review.Rating} reviewText = {review.ReviewText} date = {review.Date}/>
+            <ReviewCard carparkId = {review.CarparkId} commentId = {review.CommentId} user = {review.User} rating = {review.Rating} reviewText = {review.ReviewText} date = {review.Date}/>
         )
         return(
             <div className="reviewSection">

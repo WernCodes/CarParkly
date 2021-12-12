@@ -1,0 +1,20 @@
+.addressTimeRates{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.addressAndTime{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding-right: 2rem;
+}
+.addressText{
+    font-size: 25px;
+    padding-bottom: 20px;
+}
+.time{
+    display: flex;
+    flex-direction: column;
+}

@@ -24,3 +24,18 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.upvote{
+    border-color: #dddddd;
+}
+.downvote{
+    border-color: #dddddd;
+}
+.disabledUpvote{
+    background-color: #dddddd;
+    color: #999999;
+}
+.disabledDownvote{
+    background-color: #dddddd;
+    color: #999999;
+}
