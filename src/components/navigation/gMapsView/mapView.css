@@ -1,0 +1,27 @@
+.input{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.search {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+
+}
+
+.search input {
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+.locate {
+    position: relative;
+    background: none;
+    border: none;
+    z-index: 10;
+}
+.locate img {
+    width: 30px;
+    cursor: pointer;
+}

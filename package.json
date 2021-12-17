@@ -6,14 +6,19 @@
     "@ant-design/icons": "^4.7.0",
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
+    "@react-google-maps/api": "^2.7.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.16.13",
+    "date-fns": "^2.27.0",
     "google-maps-react": "^2.0.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-autocomplete": "^2.6.1",
+    "react-google-places-autocomplete": "^3.3.2",
     "react-scripts": "4.0.3",
+    "use-places-autocomplete": "^1.11.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -47,6 +52,7 @@
   },
   "devDependencies": {
     "@mui/material": "^5.2.3",
+    "@reach/combobox": "^0.16.5",
     "react-router-dom": "^5.3.0"
   }
 }

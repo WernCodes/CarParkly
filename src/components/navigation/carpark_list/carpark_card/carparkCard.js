@@ -12,18 +12,12 @@ class CarparkCard extends React.Component{
             AvailableLots: this.props.availableLots,
             Location: this.props.location
         }
+        this.handleNavigateClick = this.handleNavigateClick.bind(this)
     }
 
     handleNavigateClick(){
-        fetch("http://192.168.0.120:8080/api/students", {
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(response => console.log(response)
-            )
-            .catch(err => {
-                console.log(err);
-            });
+        const values = this.state.Location.split(" ");
+        window.open("https://maps.google.com?q="+values[0]+","+values[1]);
     }
 
 

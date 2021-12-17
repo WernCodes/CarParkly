@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 const mapStyles = {
     map: {
-
         width: '100%',
         height: '100%',
     }

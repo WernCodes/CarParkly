@@ -39,7 +39,7 @@ const CarparkDetails = () =>{
 
     if(!state.carparkId){
         console.log("going home");
-        return (RouteNavigation(""))
+        RouteNavigation("")
     }
 
     return (

@@ -7,7 +7,7 @@ class SearchFilters extends React.Component{
 
     constructor(props) {
         super(props);
-        const defaultValue= 250
+        const defaultValue= this.props.defaultValue
         this.state = {
             sliderValue :defaultValue,
             defaultValue: defaultValue
@@ -15,7 +15,7 @@ class SearchFilters extends React.Component{
     }
 
     onChange(value) {
-        console.log('slider value: ', value);
+        this.props.onRadiusChange(value);
         this.setState({
             sliderValue : value
         })

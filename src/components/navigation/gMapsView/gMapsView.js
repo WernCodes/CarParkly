@@ -31,16 +31,20 @@ class MapContainer extends React.Component {
     };
 
     render() {
+        this.markers = [{name:"test1", pos:{lat: 1.3606523384496456, lng: 103.9598881454846}}, {name:"test2", pos:{lat: 1.266633203717416, lng: 103.85615195966469}}]
+        let markerList = this.markers.map((marker,index) =>
+            <Marker
+                onClick={this.onMarkerClick}
+                name={marker.name}
+                position={marker.pos}
+            />)
         return (
             <div className="mapArea">
                 <CurrentLocation
                     centerAroundCurrentLocation
                     google={this.props.google}
                 >
-                <Marker
-                    onClick={this.onMarkerClick}
-                    name={'Current Location'}
-                />
+                    {markerList}
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
@@ -57,6 +61,7 @@ class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: googleApiKey
+    apiKey: googleApiKey,
+    libraries: ['places']
 
 })(MapContainer);

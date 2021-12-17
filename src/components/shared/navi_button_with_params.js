@@ -9,6 +9,7 @@ function NaviButtonWithParamsFunction(props) {
 
         console.log("CLICKED with params!")
         console.log(navigationRoute)
+        console.log("pushing these values:", stateValues)
         history.push({
             pathname: '/'+navigationRoute,
             state: stateValues,
