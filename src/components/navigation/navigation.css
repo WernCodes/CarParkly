@@ -13,7 +13,6 @@ body {
 
 .searchSection{
     display:flex;
-    justify-content: space-between;
     margin-bottom: 25px;
 }
 .searchFilters{
@@ -24,6 +23,15 @@ body {
     border-radius: 2px;
     float:  left;
     clear: left;
+}
+
+.sortDropdown{
+    font-size: 1.5rem;
+    color: white;
+}
+
+.menuItems{
+    font-size: 1rem;
 }
 
 .destinationInput{
@@ -41,11 +49,16 @@ body {
 }
 
 .carparks{
-    padding-top: 45px;
+    display: flex;
+    flex-direction: column;
     float: left;
     flex: 3;
     width: 30%;
     padding-left: 2rem;
+}
+
+.carparkBox{
+    padding-top: 15px;
 }
 
 .gMaps{

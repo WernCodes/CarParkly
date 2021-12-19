@@ -3,6 +3,9 @@ import React from "react";
 import './navigation.css';
 import SearchFilters from "./search_filters/searchFilters";
 import CarparkList from "./carpark_list/carparkList";
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+
 
 import MapView from "./gMapsView/mapView";
 
@@ -17,21 +20,91 @@ class Navigation extends React.Component{
             carparkMarkers: [],
             lat: null,
             lng: null,
+            sortKey: "Distance"
         }
         this.handleLocation= this.handleLocation.bind(this)
         this.handleRadiusChange= this.handleRadiusChange.bind(this)
+        this.handleSort = this.handleSort.bind(this)
+        this.distanceAPI= "http://192.168.0.115:8080/api/carparksByDistance"
+        this.availabilityAPI= "http://192.168.0.115:8080/api/carparksByAvailability"
+
 
     }
     handleSearch(e){
         console.log(e);
     }
+
+    handleSort = ({ key }) => {
+        console.log(key)
+        this.setState({
+            sortKey: key
+        })
+        if(this.state.lat){
+            this.refreshCarparks()
+        }
+    };
+
+    async refreshCarparks() {
+        console.log(this.state.lat,this.state.lng)
+        await this.setState({carparkList:[], carparkMarkers: []})
+        const radius = this.state.radius/1000;
+        let apiUrl = null;
+        // method body
+        if(this.state.sortKey === "Distance")
+            apiUrl = this.distanceAPI;
+        else if(this.state.sortKey === "Availability")
+            apiUrl = this.availabilityAPI;
+
+        async function getClosestCarparks(lat, lng, radius, url) {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ maxDistanceToLocation: radius, locationLat: lat, locationLon: lng })
+            };
+            let response = null;
+            await fetch(url, requestOptions)
+                .then((response) => response.json())
+                .then((json) => {
+                    // body
+                    console.log(json);
+                    response = json;
+                });
+            console.log("Completed");
+            return response['result'];
+
+        }
+        const list = await getClosestCarparks(this.state.lat, this.state.lng, radius, apiUrl)
+        this.setState({
+            carparkList: list
+        })
+        const arr =this.state.carparkList.map((carpark,index) =>{
+            const pos = carpark.Location;
+            const values = pos.split(" ");
+            return {
+                lat: parseFloat(values[0]),
+                lng: parseFloat(values[1]),
+                name: carpark.Name
+            }
+
+        })
+        this.setState({
+            carparkMarkers: arr
+        })
+    }
+
     async handleRadiusChange(radius){
         console.log('radius', radius)
         await this.setState({radius: radius, carparkList:[], carparkMarkers: []});
         console.log("current State:", this.state)
         if(this.state.lat){
             const radius = this.state.radius/1000;
-            async function getClosestCarparks(lat, lng, radius) {
+            let apiUrl = null;
+            // method body
+            if(this.state.sortKey === "Distance")
+                apiUrl = this.distanceAPI;
+            else if(this.state.sortKey === "Availability")
+                apiUrl = this.availabilityAPI;
+            async function getClosestCarparks(lat, lng, radius, url) {
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -39,8 +112,7 @@ class Navigation extends React.Component{
                     body: JSON.stringify({ maxDistanceToLocation: radius, locationLat: lat, locationLon: lng })
                 };
                 let response = null;
-                // method body
-                await fetch("http://192.168.0.115:8080/api/carparksByAvailability", requestOptions)
+                await fetch(url, requestOptions)
                     .then((response) => response.json())
                     .then((json) => {
                         // body
@@ -51,7 +123,7 @@ class Navigation extends React.Component{
                 return response['result'];
 
             }
-            const list = await getClosestCarparks(this.state.lat, this.state.lng, radius)
+            const list = await getClosestCarparks(this.state.lat, this.state.lng, radius, apiUrl)
             this.setState({
                 carparkList: list
             })
@@ -76,7 +148,14 @@ class Navigation extends React.Component{
         console.log(lat,lng)
         await this.setState({lat: lat, lng: lng, carparkList:[], carparkMarkers: []})
         const radius = this.state.radius/1000;
-        async function getClosestCarparks(lat, lng, radius) {
+        let apiUrl = null;
+        // method body
+        if(this.state.sortKey === "Distance")
+            apiUrl = this.distanceAPI;
+        else if(this.state.sortKey === "Availability")
+            apiUrl = this.availabilityAPI;
+
+        async function getClosestCarparks(lat, lng, radius, url) {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -84,8 +163,7 @@ class Navigation extends React.Component{
                 body: JSON.stringify({ maxDistanceToLocation: radius, locationLat: lat, locationLon: lng })
             };
             let response = null;
-            // method body
-            await fetch("http://192.168.0.115:8080/api/carparksByAvailability", requestOptions)
+            await fetch(url, requestOptions)
                 .then((response) => response.json())
                 .then((json) => {
                     // body
@@ -96,7 +174,7 @@ class Navigation extends React.Component{
             return response['result'];
 
         }
-        const list = await getClosestCarparks(lat, lng, radius)
+        const list = await getClosestCarparks(lat, lng, radius, apiUrl)
         this.setState({
             carparkList: list
         })
@@ -116,6 +194,12 @@ class Navigation extends React.Component{
     }
 
     render() {
+        const menu = (
+            <Menu onClick={this.handleSort}>
+                <Menu.Item className="menuItems"  key="Distance">Distance</Menu.Item>
+                <Menu.Item className="menuItems" key="Availability">Availability</Menu.Item>
+            </Menu>
+        );
         return (
             <div className="navigationPage">
                 <div className ="header">
@@ -123,10 +207,6 @@ class Navigation extends React.Component{
                 </div>
                 <div className="pageBody">
                     <div className="searchSection">
-                        <div className="destinationBar">
-                            <div className = "destinationInput">
-                            </div>
-                        </div>
                         <div className="searchFilters">
                             <SearchFilters onRadiusChange={this.handleRadiusChange} defaultValue ={this.defaultSliderValue}/>
                         </div>
@@ -136,7 +216,16 @@ class Navigation extends React.Component{
                             <MapView onLocationChange = {this.handleLocation} markers = {this.state.carparkMarkers}/>
                         </div>
                         <div className="carparks">
-                            <CarparkList carparkList = {this.state.carparkList}/>
+                            <div className= "dropdown">
+                                <Dropdown overlay={menu}>
+                                    <a className="sortDropdown" onClick={e => e.preventDefault()}>
+                                        Sort <DownOutlined />
+                                    </a>
+                                </Dropdown>
+                            </div>
+                            <div className="carparkBox">
+                                <CarparkList carparkList = {this.state.carparkList}/>
+                            </div>
                         </div>
                     </div>
                 </div>
