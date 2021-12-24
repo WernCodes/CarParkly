@@ -17,11 +17,13 @@ class ReviewsList extends React.Component{
             submitReview:false,
             input:null,
             rating: 0,
+            loggedIn : props.loggedIn
         }
         this.onWriteReviewClicked = this.onWriteReviewClicked.bind(this);
         this.onSubmitReviewClicked = this.onSubmitReviewClicked.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.setRating = this.setRating.bind(this);
+        this.retrieveReviews = this.retrieveReviews.bind(this);
 
     }
 
@@ -29,14 +31,14 @@ class ReviewsList extends React.Component{
         this.retrieveReviews(this.props.carparkId);
     }
 
-    retrieveReviews(carparkId) {
+    async retrieveReviews(carparkId) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Id: carparkId })
         };
         //TODO change to post
-        fetch("http://192.168.0.120:8080/api/students", requestOptions)
+        await fetch("http://192.168.0.120:8080/api/students", requestOptions)
             .then(response => response.json())
             .then(response => {
                     console.log(response);
@@ -133,17 +135,25 @@ class ReviewsList extends React.Component{
                 )
             }
         } else{
-            this.displayReview = (
-                <div className="writeReview">
-                    <Typography component="legend">Review this product</Typography>
-                    <ButtonFunction value = {"Contribute a review"} handleClick = {this.onWriteReviewClicked}/>
-                </div>
-            )
-        }
+            if(this.state.loggedIn){
+                this.displayReview = (
+                    <div className="writeReview">
+                        <Typography component="legend">Review this product</Typography>
+                        <ButtonFunction value = {"Contribute a review"} handleClick = {this.onWriteReviewClicked}/>
+                    </div>
+                )
+            } else{
+                this.displayReview = (
+                    <div className="writeReview">
+                        <Typography component="legend">Please log in to write a review</Typography>
+                    </div>
+                )
+            }
 
+        }
         // TODO remove this line once api works
         this.reviews = [reviewA, reviewB];
-        let itemList=this.reviews.map((review,index) =>
+        let itemList=this.reviews.map((review) =>
             <ReviewCard carparkId = {review.CarparkId} commentId = {review.CommentId} user = {review.User} rating = {review.Rating} reviewText = {review.ReviewText} date = {review.Date}/>
         )
         return(

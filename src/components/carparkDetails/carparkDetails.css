@@ -9,7 +9,24 @@
 }
 .YT{
 }
-
+.carparkDetailsHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+.carparkDetailstitle{
+    float: left;
+}
+.carparkDetailslogin{
+    float: right;
+    width: 20%;
+}
+.carparkDetailsavatar{
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
 .communityReviews{
     margin-top: 50px;
     padding-left: 100px;

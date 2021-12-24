@@ -10,7 +10,8 @@ class CarparkCard extends React.Component{
             Id: this.props.carparkId,
             Name: this.props.name,
             AvailableLots: this.props.availableLots,
-            Location: this.props.location
+            Location: this.props.location,
+            Agency: this.props.agency
         }
         this.handleNavigateClick = this.handleNavigateClick.bind(this)
     }

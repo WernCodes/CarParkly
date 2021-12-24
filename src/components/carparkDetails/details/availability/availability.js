@@ -50,11 +50,20 @@ function Availability(props) {
     // console.log(result);
 
     //if(result['Availability'] === 'Open'){
-    return (
-        <div className="greenCard">
-            <Statistic title="Availability" value={93} suffix="/ 100" valueStyle={{ color: '#3f8600' }}/>
-        </div>
-    );
+    if(props.availableLots && props.totalLots) {
+        return (
+            <div className="greenCard">
+                <Statistic title="Availability" value={props.availableLots} suffix={"/" + props.totalLots}
+                           valueStyle={{color: '#3f8600'}}/>
+            </div>
+        );
+    }else{
+        return (
+            <div className="greenCard">
+
+            </div>
+        );
+    }
 
 
 }

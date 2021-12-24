@@ -9,7 +9,7 @@ function Address(props) {
 
     return (
         <div className="button">
-            <Button type = "primary" size = "large" block = "false" onClick={() =>showInMapClicked(props.lat, props.long)}>{props.value}</Button>
+            <Button type = "primary" size = "large" block = "false" onClick={() =>showInMapClicked(props.lat, props.lng)}>{props.value}</Button>
         </div>
     );
 }
