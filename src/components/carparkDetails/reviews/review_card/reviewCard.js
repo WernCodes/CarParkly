@@ -15,18 +15,19 @@ class ReviewCard extends React.Component{
             Rating: this.props.rating,
             Review: this.props.reviewText,
             Date: this.props.date,
+            Votes: this.props.votes,
             Voted: false,
         }
         this.vote = this.vote.bind(this);
     }
 
-    vote(commentId, num){
+    vote(num){
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentId: commentId, userId: "1", num: num })
+            body: JSON.stringify({ carparkId: this.state.CarparkId, commentId: this.state.CommentId,  num: num })
         };
-        fetch("http://192.168.0.120:8080/api/students", requestOptions)
+        fetch("http://192.168.0.115:8080/api/editVotes", requestOptions)
             .then(response => response.json())
             .then(response => console.log(response)
             )
@@ -51,12 +52,13 @@ class ReviewCard extends React.Component{
                     <Rating name="read-only" value={this.state.Rating} readOnly />
                     <Typography component="legend">{this.state.Date}</Typography>
                     <div className="vote-buttons">
-                        <button disabled = {this.state.Voted} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(this.state.commentId, 1)}>
+                        <button disabled = {this.state.Voted} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
                             Upvote
                         </button>
-                        <button disabled = {this.state.Voted} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(this.state.commentId, -1)}>
+                        <button disabled = {this.state.Voted} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
                             Downvote
                         </button>
+                        <Typography component="legend">{this.state.Votes}</Typography>
                     </div>
                 </div>
                 <div className="reviewText">{this.state.Review}</div>

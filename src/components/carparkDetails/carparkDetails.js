@@ -27,6 +27,8 @@ const CarparkDetails = () =>{
         name: location.state.Name,
         agency: location.state.Agency,
     };
+
+    // when component loads, check if there is already a user logged in browser storage. Retrieve relevant data from api call to load page
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
@@ -67,6 +69,7 @@ const CarparkDetails = () =>{
         RouteNavigation("")
     }
 
+    // if a user is already logged in
     if (user){
         login = (
             <div className="carparkDetailsavatar">
@@ -103,6 +106,8 @@ const CarparkDetails = () =>{
         )
 
     }
+
+    // log in function
     async function handleLogInClick(){
         const requestOptions = {
             method: 'POST',
@@ -158,7 +163,7 @@ const CarparkDetails = () =>{
             </div>
 
             <div className='communityReviews'>
-                <ReviewsList key={!!user} values = {state} loggedIn = {!!user}/>
+                <ReviewsList key={user} values = {state} loggedIn = {user}/>
             </div>
         </div>
     );

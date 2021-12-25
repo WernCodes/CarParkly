@@ -5,19 +5,23 @@ import Typography from "@mui/material/Typography";
 import ButtonFunction from "../../shared/button";
 import { Input } from 'antd';
 import Rating from '@mui/material/Rating';
+import TitleCard from "../../shared/title";
 
+// Component that renders the list of reviews in a table form
 class ReviewsList extends React.Component{
-    reviews;
     displayReview;
 
     constructor(props) {
         super(props);
         this.state = {
+            carparkId: this.props.values['carparkId'],
             addReview: false,
             submitReview:false,
             input:null,
             rating: 0,
-            loggedIn : props.loggedIn
+            loggedIn : props.loggedIn,
+            reviews: null,
+            isLoading:true
         }
         this.onWriteReviewClicked = this.onWriteReviewClicked.bind(this);
         this.onSubmitReviewClicked = this.onSubmitReviewClicked.bind(this);
@@ -28,22 +32,19 @@ class ReviewsList extends React.Component{
     }
 
     componentDidMount() {
-        this.retrieveReviews(this.props.carparkId);
+        this.retrieveReviews(this.state.carparkId);
     }
 
     async retrieveReviews(carparkId) {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ Id: carparkId })
-        };
-        //TODO change to post
-        await fetch("http://192.168.0.120:8080/api/students", requestOptions)
+        await fetch("http://192.168.0.115:8080/api/getReviews?carparkId="+carparkId, {method: 'GET'})
             .then(response => response.json())
             .then(response => {
                     console.log(response);
                     // TODO add backend data
-                    this.reviews = response['results'];
+                    this.setState({
+                        isLoading:false,
+                        reviews: response['result']
+                    });
                 }
             )
             .catch(err => {
@@ -75,14 +76,12 @@ class ReviewsList extends React.Component{
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ carparkId: "A", userId: "1", review: this.state.input, rating: this.state.rating })
+                body: JSON.stringify({ carparkId: this.state.carparkId, username: this.state.loggedIn, review: this.state.input, rating: this.state.rating })
         };
-        fetch("http://192.168.0.120:8080/api/students", requestOptions)
+        fetch("http://192.168.0.115:8080/api/addReview", requestOptions)
             .then(response => response.json())
             .then(response => {
                     console.log(response);
-                    // TODO add backend data
-                    this.reviews = response['results'];
                 }
             )
             .catch(err => {
@@ -94,23 +93,6 @@ class ReviewsList extends React.Component{
     }
 
     render(){
-        const reviewA = {
-            CarparkId: 'A',
-            CommentId: '123',
-            User: "John",
-            Rating: 4,
-            ReviewText: "Carpark is spacious",
-            Date: '11/12/2021'
-        }
-        const reviewB = {
-            CarparkId: 'B',
-            CommentId: '456',
-            User: "Bob",
-            Rating: 3,
-            ReviewText: "Carpark is narrow",
-            Date: '30/12/2021'
-        }
-
         if (this.state.addReview) {
             if(!this.state.submitReview){
                 const { TextArea } = Input;
@@ -151,11 +133,23 @@ class ReviewsList extends React.Component{
             }
 
         }
-        // TODO remove this line once api works
-        this.reviews = [reviewA, reviewB];
-        let itemList=this.reviews.map((review) =>
-            <ReviewCard carparkId = {review.CarparkId} commentId = {review.CommentId} user = {review.User} rating = {review.Rating} reviewText = {review.ReviewText} date = {review.Date}/>
-        )
+        if (this.state.isLoading) {
+            return <div className="reviewSection">
+                <TitleCard  text = "Loading..."/>
+            </div>;
+        }
+
+        let itemList;
+        if(this.state.reviews.length===0){
+            itemList= (
+                <TitleCard  text = "There are currently no reviews"/>
+            )
+        }else {
+            itemList = this.state.reviews.map((review) =>
+                <ReviewCard carparkId={review['CarParkID']} commentId={review['CommentID']} user={review['Username']}
+                            rating={review['Rating']} reviewText={review['Review']} date={review['Date']} votes={review['Votes']}/>
+            )
+        }
         return(
             <div className="reviewSection">
                 {this.displayReview}
