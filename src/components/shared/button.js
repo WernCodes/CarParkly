@@ -5,9 +5,12 @@ import './button.css'
 function ButtonFunction(props) {
     return (
         <div className="button">
-            <Button type = "primary" size = "large" block = "false" onClick={(e) => props.handleClick(e)}>{props.value}</Button>
+            <Button disabled={props.disabled} type = "primary" size = "large" block = "false" onClick={(e) => props.handleClick(e)}>{props.value}</Button>
         </div>
     );
+}
+ButtonFunction.defaultProps = {
+    disabled: false
 }
 
 

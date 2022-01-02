@@ -2,19 +2,47 @@
     padding-top: 10px;
     display: flex;
     justify-content: center;
+
 }
 
 .addressAndTime{
     display: flex;
     flex-direction: column;
     width: 30%;
-    padding-right: 2rem;
 }
 .addressText{
     font-size: 25px;
     padding-bottom: 20px;
+    font-weight: bolder;
+
 }
 .time{
     display: flex;
     flex-direction: column;
+}
+.rates{
+    font-size: larger;
+}
+.calculatedCost{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    text-align: center;
+}
+
+.totalCost{
+    font-size: xx-large;
+    font-weight: bold;
+}
+.remarks{
+    font-size: xx-large;
+    font-weight: bold;
+}
+.error{
+    padding-top: 50px;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
 }

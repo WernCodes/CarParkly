@@ -7,40 +7,93 @@ import {TimePicker} from "antd";
 import ButtonFunction from "../shared/button";
 
 const CostCalculator = () =>{
-    //TODO set to true when implementing API
-    const [isLoading, setLoading] = useState(false);
+    let calculatedSection;
+    let ratesSection;
+
+    const [isLoading, setLoading] = useState(true);
+    const [rates, setRates] = useState({});
+    const [totalCost, setTotalCost] = useState();
+    const [remarks, setRemarks] = useState('None');
+    const [calculated, setCalculated] = useState(false);
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+    const [error, setError] = useState(null);
+    const [timesSelected, setTimesSelected]= useState(false)
+
+
     const location = useLocation();
     const state = {
         carparkId: location.state.carparkId,
         name: location.state.name,
-        rates: null,
+        agency: location.state.agency,
         address: null,
-        totalCost: null,
-        calculated: false
     };
 
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
-    const [startTime, setStartValue] = useState(null);
     const onChangeStartTime = time => {
-        setStartValue(time);
+        setStartTime(time);
+        if(endTime){
+            setTimesSelected(true)
+        }
     };
-    const [endTime, setEndValue] = useState(null);
     const onChangeEndTime = time => {
-        setEndValue(time);
+        setEndTime(time);
+        if(startTime){
+            setTimesSelected(true)
+        }
     };
 
     useEffect(() => {
-        fetch("http://192.168.0.120:8080/api/students", {
-            method: "GET",
-        })
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
+        };
+        fetch("http://192.168.0.115:8080/api/carpark", requestOptions)
             .then(response => response.json())
-            .then(response => console.log(response))
-            .then(response => setLoading(true))
+            .then(json => {
+                // body
+                console.log(json['result']['Carpark']['Rates']);
+                if (state.agency === 'HDB') {
+                    setRates(json['result']['Carpark']['Rates']);
+                }else if (state.agency === 'URA') {
+                    setRates(json['result']['Carpark']['Rates']['Car']);
+                }
+                setLoading(false);
+            })
             .catch(err => {
                 console.log(err);
             });
-    },[]);
+
+    },[state.agency, state.carparkId]);
+
+    // calculate cost function
+    async function onCalculateClicked(){
+        if (startTime>=endTime){
+            setError('Start time must be before end time!')
+            return
+        }
+        setError(null)
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ carparkId: state.carparkId, timeIn: startTime.format("HH:mm"), timeOut: endTime.format("HH:mm")})
+        };
+        await fetch("http://192.168.0.115:8080/api/calculate", requestOptions)
+            .then(response => response.json())
+            .then(json => {
+                // body
+                console.log(json)
+                setTotalCost(json['result']['Cost']);
+                setRemarks(json['message']);
+                setCalculated(true)
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     if (isLoading) {
         return <div className="costCalculator">
@@ -53,49 +106,72 @@ const CostCalculator = () =>{
         return (RouteNavigation(""))
     }
 
-    function onCalculateClicked() {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ carparkId: "A", date: date, startTime: startTime, endTime: endTime })
-        };
-        fetch("http://192.168.0.120:8080/api/students", requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                    console.log(response);
-                    // TODO add backend data
-                    state.totalCost = response['results'];
-                    state.calculated = true;
-                }
-            )
-            .catch(err => {
-                console.log(err);
-            });
+    if(state.agency==='HDB'){
+        ratesSection = (Object.keys(rates).map((key, index) => (
+            <p key={index}> {key} : {rates[key]}</p>
+        )))
+    }else if (state.agency==='URA'){
+        //TODO create a rates api to display rates of carpark nicer
     }
+
+    if(calculated){
+        if (remarks){
+            calculatedSection =(
+                <div className="calculatedCost">
+                    <div className='totalCost'>
+                        {"Total Cost: $"+totalCost}
+                    </div>
+                    <div className='remarks'>
+                        {"Remarks: "+remarks}
+                    </div>
+                </div>
+            )
+        }else{
+            calculatedSection =(
+                <div className="calculatedCost">
+                    <div className='totalCost'>
+                        {"Total Cost: $"+totalCost}
+                    </div>
+                </div>
+            )
+        }
+
+    }else if (error){
+        calculatedSection =(
+            <div className="error">
+                {error}
+            </div>
+        )
+    }else{
+        calculatedSection =(
+            <div>
+
+            </div>
+        )
+    }
+
     return (
         <div className="costCalculator">
             <TitleCard  text = {"Cost Calculator"}/>
             <div className="addressTimeRates">
                 <div className="addressAndTime">
                     <div className="addressText">
-                        {state.name + ": "+ state.address}
+                        {state.name}
+                    </div>
+                    <div className="rates">
+                        {
+                            ratesSection
+                        }
                     </div>
                     <div className="time">
                         <TimePicker placeholder="Start Time" format="HH:mm" value={startTime} onChange={onChangeStartTime} />
                         <TimePicker placeholder="End Time" format="HH:mm" value={endTime} onChange={onChangeEndTime} />
-                        <ButtonFunction value = {"Calculate!"} handleClick = {onCalculateClicked}/>
+                        <ButtonFunction disabled={!timesSelected} value = {"Calculate!"} handleClick = {onCalculateClicked}/>
                     </div>
-
                 </div>
-                <div className="rates">
-                {/* TODO style rates */}
-                 </div>
-            </div>
 
-            <div className='totalCost'>
-                {state.totalCost}
             </div>
-
+            {calculatedSection}
         </div>
     );
 }
