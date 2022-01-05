@@ -10,8 +10,8 @@ class CarparkList extends React.Component{
 
     render(){
         const Carparks = this.props.carparkList;
-        let itemList=Carparks.map((carpark) =>
-                <CarparkCard carparkId = {carpark.CarParkID} name = {carpark.Name} availableLots = {carpark.AvailableLots} location = {carpark.Location} agency = {carpark.Agency}/>
+        let itemList=Carparks.map((carpark, index) =>
+                <CarparkCard key = {index} carparkId = {carpark.CarParkID} name = {carpark.Name} availableLots = {carpark.AvailableLots} location = {carpark.Location} agency = {carpark.Agency}/>
             )
         return(
             <div className="box">

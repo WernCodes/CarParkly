@@ -16,7 +16,7 @@ class Details extends React.Component{
         return (
             <div className="details">
                 <div className="address"> <Address lat = {this.props.lat} lng = {this.props.lng} value = {"Open location in Google Maps"}/> </div>
-                <div className="availability"> <Availability availableLots = {this.props.availableLots} totalLots = {this.props.totalLots}/> </div>
+                <div className="availability"> <Availability lotClassification = {this.props.lotClassification} availableLots = {this.props.availableLots} totalLots = {this.props.totalLots}/> </div>
                 <div className="costCalculator"> <NaviButtonWithParamsFunction value = {"Cost Calculator"} navigate={"costCalculator"} state = {this.state}/> </div>
             </div>
         );

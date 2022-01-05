@@ -1,6 +1,5 @@
 import TitleCard from "../shared/title";
 import SearchBar from "../shared/searchBar";
-import ButtonFunction from "../shared/button";
 import React from "react";
 import NaviButtonFunction from "../shared/navi_button";
 import './home.css';
@@ -30,8 +29,6 @@ class Home extends React.Component{
                 </div>
                 <div className= "buttonSection">
                     <NaviButtonFunction value = {"Navigation"} navigate={"navigation"}/>
-                    {/* TODO add car park charge calculator link*/}
-                    <ButtonFunction value = {"Car Park Charge Calculator"} handleClick = {this.handleClick}/>
                 </div>
             </div>
         );

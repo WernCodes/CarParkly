@@ -5,6 +5,7 @@ import RouteNavigation from "../shared/routeNavigation";
 import {useLocation} from 'react-router-dom';
 import {TimePicker} from "antd";
 import ButtonFunction from "../shared/button";
+import Linkify from 'react-linkify';
 
 const CostCalculator = () =>{
     let calculatedSection;
@@ -50,16 +51,12 @@ const CostCalculator = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
         };
-        fetch("http://192.168.0.115:8080/api/carpark", requestOptions)
+        fetch("http://192.168.0.115:8080/api/rates", requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body
-                console.log(json['result']['Carpark']['Rates']);
-                if (state.agency === 'HDB') {
-                    setRates(json['result']['Carpark']['Rates']);
-                }else if (state.agency === 'URA') {
-                    setRates(json['result']['Carpark']['Rates']['Car']);
-                }
+                console.log(json['result']);
+                setRates(json['result']);
                 setLoading(false);
             })
             .catch(err => {
@@ -107,11 +104,20 @@ const CostCalculator = () =>{
     }
 
     if(state.agency==='HDB'){
-        ratesSection = (Object.keys(rates).map((key, index) => (
-            <p key={index}> {key} : {rates[key]}</p>
-        )))
+        ratesSection = (<div className='HDBRates'>
+            <Linkify properties={{ target: '_blank', style: { color: '#000000' } }} key = {rates['Message']}>Message : {rates['Message']}</Linkify>
+            <p key={rates['Central Car Park?']}>Central Car Park? : {rates['Central Car Park?']}</p>
+        </div>
+        )
     }else if (state.agency==='URA'){
-        //TODO create a rates api to display rates of carpark nicer
+        ratesSection =rates.map((rate) => {
+             return <div className="URASingleRate">
+                {Object.keys(rate).map((key, index) => (
+                    <p key={index}>{key} : {rate[key]}</p>
+                ))}
+                </div>
+            }
+        )
     }
 
     if(calculated){
@@ -158,18 +164,17 @@ const CostCalculator = () =>{
                     <div className="addressText">
                         {state.name}
                     </div>
-                    <div className="rates">
-                        {
-                            ratesSection
-                        }
-                    </div>
                     <div className="time">
                         <TimePicker placeholder="Start Time" format="HH:mm" value={startTime} onChange={onChangeStartTime} />
                         <TimePicker placeholder="End Time" format="HH:mm" value={endTime} onChange={onChangeEndTime} />
                         <ButtonFunction disabled={!timesSelected} value = {"Calculate!"} handleClick = {onCalculateClicked}/>
                     </div>
                 </div>
-
+                <div className="rates">
+                    {
+                        ratesSection
+                    }
+                </div>
             </div>
             {calculatedSection}
         </div>

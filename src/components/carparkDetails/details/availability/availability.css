@@ -1,17 +1,4 @@
-.greenCard{
+.availabilityCard{
     background-color: #dddddd;
-    color:green;
-    text-align: center;
-}
-
-.orangeCard{
-    background-color: #dddddd;
-    color:orange;
-    text-align: center;
-}
-
-.redCard{
-    background-color: #dddddd;
-    color:red;
     text-align: center;
 }

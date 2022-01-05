@@ -17,6 +17,7 @@ const CarparkDetails = () =>{
     const [password, setPassword] = useState();
     const [availableLots, setAvailableLots] = useState(null);
     const [totalLots, setTotalLots] = useState(null);
+    const [classification, setClassification] = useState("Open")
     const [lat, setLat] = useState(null);
     const [lng, setLng] = useState(null);
     const [user, setUser] = useState(null);
@@ -49,6 +50,7 @@ const CarparkDetails = () =>{
 
                 setAvailableLots(json['result']['LotData']['AvailableLots']);
                 setTotalLots(json['result']['LotData']['TotalLots']);
+                setClassification(json['result']['LotData']['AvailabilityClassification'])
                 setLat(parseFloat(values[0]));
                 setLng(parseFloat(values[1]));
             })
@@ -151,7 +153,7 @@ const CarparkDetails = () =>{
             </div>
             <div className="detailsAndYT">
                 <div className="detailsAndLinks">
-                    <Details values ={state} availableLots = {availableLots} totalLots ={totalLots} lat = {lat} lng = {lng}/>
+                    <Details values ={state} lotClassification ={classification} availableLots = {availableLots} totalLots ={totalLots} lat = {lat} lng = {lng}/>
                     {/* TODO add in YT function */}
                 </div>
                 <div className = "YT">

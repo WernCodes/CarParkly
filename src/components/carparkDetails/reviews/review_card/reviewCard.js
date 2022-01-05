@@ -17,6 +17,8 @@ class ReviewCard extends React.Component{
             Date: this.props.date,
             Votes: this.props.votes,
             Voted: false,
+            LoggedIn: this.props.loggedIn,
+            VotedBefore: this.props.votedBefore
         }
         this.vote = this.vote.bind(this);
     }
@@ -25,7 +27,7 @@ class ReviewCard extends React.Component{
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ carparkId: this.state.CarparkId, commentId: this.state.CommentId,  num: num })
+            body: JSON.stringify({ carparkId: this.state.CarparkId, commentId: this.state.CommentId, username: this.state.LoggedIn,  num: num })
         };
         fetch("http://192.168.0.115:8080/api/editVotes", requestOptions)
             .then(response => response.json())
@@ -41,7 +43,6 @@ class ReviewCard extends React.Component{
 
 
     render(){
-
         return(
             <div className="reviewCard">
                 <div className="user">
@@ -51,14 +52,18 @@ class ReviewCard extends React.Component{
                 <div className="rating">
                     <Rating name="read-only" value={this.state.Rating} readOnly />
                     <Typography component="legend">{this.state.Date}</Typography>
-                    <div className="vote-buttons">
-                        <button disabled = {this.state.Voted} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
-                            Upvote
-                        </button>
-                        <button disabled = {this.state.Voted} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
-                            Downvote
-                        </button>
-                        <Typography component="legend">{this.state.Votes}</Typography>
+                    <div className="voteButtonsAndNumbers">
+                        <div className="voteButtons">
+                            <button disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
+                                Upvote
+                            </button>
+                            <button disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
+                                Downvote
+                            </button>
+                        </div>
+                        <div className="numVotes">
+                            <Typography component="legend">{this.state.Votes}</Typography>
+                        </div>
                     </div>
                 </div>
                 <div className="reviewText">{this.state.Review}</div>

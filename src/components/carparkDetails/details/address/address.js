@@ -4,7 +4,7 @@ import './address.css'
 
 function Address(props) {
     function showInMapClicked(lat, long) {
-        window.open("https://maps.google.com?q="+lat+","+long );
+        window.open("https://www.google.com/maps/dir/?api=1&destination="+lat+"%2C"+long );
     }
 
     return (

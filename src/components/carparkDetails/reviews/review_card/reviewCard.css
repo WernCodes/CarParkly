@@ -39,7 +39,12 @@
     background-color: #dddddd;
     color: #999999;
 }
-.vote-buttons{
+.voteButtonsAndNumbers{
     display: flex;
     flex-direction: row;
+    width: 200px;
+    justify-content: space-between;
 }
+.voteButtons{
+}
+.numVotes{}

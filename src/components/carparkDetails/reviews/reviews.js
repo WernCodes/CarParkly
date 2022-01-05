@@ -32,11 +32,11 @@ class ReviewsList extends React.Component{
     }
 
     componentDidMount() {
-        this.retrieveReviews(this.state.carparkId);
+        this.retrieveReviews(this.state.carparkId, this.state.loggedIn);
     }
 
-    async retrieveReviews(carparkId) {
-        await fetch("http://192.168.0.115:8080/api/getReviews?carparkId="+carparkId, {method: 'GET'})
+    async retrieveReviews(carparkId, username) {
+        await fetch("http://192.168.0.115:8080/api/getReviews?carparkId="+carparkId+"&username="+username, {method: 'GET'})
             .then(response => response.json())
             .then(response => {
                     console.log(response);
@@ -140,22 +140,27 @@ class ReviewsList extends React.Component{
         }
 
         let itemList;
+        let reviewSection;
         if(this.state.reviews.length===0){
-            itemList= (
+            reviewSection= (
                 <TitleCard  text = "There are currently no reviews"/>
             )
+
         }else {
             itemList = this.state.reviews.map((review) =>
                 <ReviewCard carparkId={review['CarParkID']} commentId={review['CommentID']} user={review['Username']}
-                            rating={review['Rating']} reviewText={review['Review']} date={review['Date']} votes={review['Votes']}/>
+                            rating={review['Rating']} reviewText={review['Review']} date={review['Date']} votes={review['Votes']} loggedIn = {this.state.loggedIn} votedBefore = {review['Voted']}/>
+            )
+            reviewSection = (
+                <div className="box">
+                    {itemList}
+                </div>
             )
         }
         return(
             <div className="reviewSection">
                 {this.displayReview}
-                <div className="box">
-                    {itemList}
-                </div>
+                {reviewSection}
             </div>
         );
     }
