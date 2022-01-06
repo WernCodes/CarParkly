@@ -3,15 +3,16 @@ import './carparkDetails.css';
 import TitleCard from "../shared/title";
 import RouteNavigation from "../shared/routeNavigation";
 import Details from "./details/details";
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ReviewsList from "./reviews/reviews";
-import { EyeInvisibleOutlined, EyeTwoTone, UserOutlined } from '@ant-design/icons';
-import { Avatar, Input } from 'antd';
+import {UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button } from 'antd';
+import { Avatar } from 'antd';
 import 'antd/dist/antd.css';
 import ButtonFunction from "../shared/button";
+import NaviLinkFunction from "../shared/navi_link";
 
 const CarparkDetails = () =>{
-    //TODO set to true when implementing API
     const [isLoading, setLoading] = useState(true);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
@@ -29,6 +30,9 @@ const CarparkDetails = () =>{
         agency: location.state.Agency,
     };
 
+    const storeUserFields = () => {
+        handleLogInClick(username, password);
+    };
     // when component loads, check if there is already a user logged in browser storage. Retrieve relevant data from api call to load page
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
@@ -91,26 +95,57 @@ const CarparkDetails = () =>{
     }else{
         login =(
             <div className="carparkDetailslogin">
-                <Input
-                    placeholder="Enter your username"
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    onChange={e => {
-                        setUsername(e.target.value)
+                <Form
+                    name="normal_login"
+                    className="login-form"
+                    initialValues={{
+                        remember: true,
                     }}
-                />
-                <Input.Password
-                    placeholder="input password"
-                    iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <ButtonFunction value = {"Log In"} handleClick={handleLogInClick}/>
+                    onFinish={storeUserFields}
+                >
+                    <Form.Item
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your Username!',
+                            },
+                        ]}
+                    >
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username"
+                               onChange={e=> setUsername(e.target.value)}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your Password!',
+                            },
+                        ]}
+                    >
+                        <Input.Password
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                            onChange={e=> setPassword(e.target.value)}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button">
+                            Log in
+                        </Button> Or <NaviLinkFunction value = {"Register"} navigate={"register"} />
+
+                    </Form.Item>
+                </Form>
             </div>
         )
 
     }
 
     // log in function
-    async function handleLogInClick(){
+    async function handleLogInClick(username, password){
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
