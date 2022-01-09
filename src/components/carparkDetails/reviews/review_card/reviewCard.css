@@ -15,6 +15,7 @@
 .name{
     display:inline-block;
     font-weight: bold;
+    color: #dddddd;
 }
 .rating{
     margin-top: 10px;
@@ -23,6 +24,7 @@
 .reviewText{
     margin-top: 20px;
     margin-bottom: 20px;
+    color: #dddddd;
 }
 
 .upvote{

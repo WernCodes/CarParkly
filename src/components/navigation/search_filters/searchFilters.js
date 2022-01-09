@@ -24,7 +24,7 @@ class SearchFilters extends React.Component{
     render(){
         return(
             <div className="slider">
-                <h3>Radius of Car parks within your destination: {this.state.sliderValue}</h3>
+                <h3 className="sliderText">Radius of Car parks within your destination: {this.state.sliderValue}</h3>
                 <RadiusSlider defaultValue ={this.state.defaultValue} max = {500} min = {1} disabled ={false} onAfterChange = {value => this.onChange(value)}/>
             </div>
         );

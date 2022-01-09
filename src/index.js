@@ -108,7 +108,7 @@ class Game extends React.Component {
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
-        document.body.style.backgroundColor = "#41b3a3";
+        document.body.style.backgroundColor = "#313896";
         return (
             <Router>
                 <div>

@@ -120,14 +120,14 @@ class ReviewsList extends React.Component{
             if(this.state.loggedIn){
                 this.displayReview = (
                     <div className="writeReview">
-                        <Typography component="legend">Review this product</Typography>
+                        <Typography component="legend"style={{color: "#dddddd"}}>Review this product</Typography>
                         <ButtonFunction value = {"Contribute a review"} handleClick = {this.onWriteReviewClicked}/>
                     </div>
                 )
             } else{
                 this.displayReview = (
                     <div className="writeReview">
-                        <Typography component="legend">Please log in to write a review</Typography>
+                        <Typography component="legend" style={{color: "#dddddd"}}>Please log in to write a review</Typography>
                     </div>
                 )
             }

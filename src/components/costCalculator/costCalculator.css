@@ -20,7 +20,7 @@
     font-size: 25px;
     padding-bottom: 20px;
     font-weight: bolder;
-
+    color: #dddddd;
 }
 .time{
     display: flex;
@@ -28,13 +28,14 @@
 }
 .rates{
     font-size: larger;
+    color: #dddddd;
 }
 .calculatedCost{
     padding-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    color: #00D7FF;
     text-align: center;
 }
 

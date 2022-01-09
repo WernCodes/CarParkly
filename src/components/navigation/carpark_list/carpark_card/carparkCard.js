@@ -18,7 +18,7 @@ class CarparkCard extends React.Component{
 
     handleNavigateClick(){
         const values = this.state.Location.split(" ");
-        window.open("https://maps.google.com?q="+values[0]+","+values[1]);
+        window.open("https://www.google.com/maps/dir/?api=1&destination="+values[0]+"%2C"+values[1] );
     }
 
 
@@ -26,14 +26,13 @@ class CarparkCard extends React.Component{
         return(
             <div className="card">
                 <div className="name_and_lots">
-                    <div>{this.state.Name}</div>
-                    <div>Available lots: {this.state.AvailableLots}</div>
+                    <div className="carparkName">{this.state.Name}</div>
+                    <div className="availableLots">Available lots: {this.state.AvailableLots}</div>
                 </div>
                 <div className="view" >
                     <NaviButtonWithParamsFunction value = {"View"} navigate={"carpark"} state = {this.state}/>
                 </div>
                 <div className="navigate" >
-                    {/* TODO add in button function */}
                     <ButtonFunction value = {"Navigate"} handleClick={this.handleNavigateClick}/>
                 </div>
             </div>

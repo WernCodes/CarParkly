@@ -5,7 +5,6 @@
 
 .name_and_lots{
     border-color: black;
-    border-right: solid;
     width: 40%;
 }
 .view{
@@ -16,4 +15,10 @@
 .navigate{
     border-color: black;
     width: 30%;
+}
+.carparkName{
+    color: #dddddd;
+}
+.availableLots{
+    color: #999999;
 }

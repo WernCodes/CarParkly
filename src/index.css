@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.dark.css';
 body {
-    background-color: #41b3a3;
+    background-color: #313896;
     font: 14px "Century Gothic", Futura, sans-serif;
 }
 
@@ -45,7 +45,7 @@ ol, ul {
     margin-left: auto;
     margin-right: auto;
     left: 50%;
-    background-color: #41b3a3;
+    background-color: #313896;
     height: 100%;
 
 }

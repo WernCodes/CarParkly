@@ -18,7 +18,7 @@ function NaviButtonWithParamsFunction(props) {
 
     return (
         <div className="button">
-            <Button type = "primary" size = "large" block = "false" onClick={() => HandleClick(props.navigate, props.state)}>{props.value}</Button>
+            <Button style={{ background: "#9F32B2", borderColor: "#9F32B2"  }} type = "primary" size = "large" block = "false" onClick={() => HandleClick(props.navigate, props.state)}>{props.value}</Button>
         </div>
     );
 }

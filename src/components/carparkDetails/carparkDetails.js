@@ -133,7 +133,7 @@ const CarparkDetails = () =>{
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" style={{ background: "#9F32B2", borderColor: "#9F32B2"  }} >
                             Log in
                         </Button> Or <NaviLinkFunction value = {"Register"} navigate={"register"} />
 

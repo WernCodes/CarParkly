@@ -94,7 +94,7 @@ const CostCalculator = () =>{
 
     if (isLoading) {
         return <div className="costCalculator">
-            <TitleCard  text = "Loading..."/>
+
         </div>;
     }
 

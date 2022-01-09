@@ -12,6 +12,7 @@ import MapView from "./gMapsView/mapView";
 class Navigation extends React.Component{
     carparkList;
     defaultSliderValue=250;
+    pauseTime = 1000;
     constructor(props){
         super(props);
         this.state = {
@@ -20,7 +21,8 @@ class Navigation extends React.Component{
             carparkMarkers: [],
             lat: null,
             lng: null,
-            sortKey: "Distance"
+            sortKey: "Distance",
+            showList: false
         }
         this.handleLocation= this.handleLocation.bind(this)
         this.handleRadiusChange= this.handleRadiusChange.bind(this)
@@ -36,24 +38,24 @@ class Navigation extends React.Component{
 
     handleSort = ({ key }) => {
         console.log(key)
-        this.setState({
-            sortKey: key
-        })
         if(this.state.lat){
-            this.refreshCarparks()
+            this.refreshCarparks(key)
         }
     };
-
-    async refreshCarparks() {
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+    async refreshCarparks(sortKey) {
         console.log(this.state.lat,this.state.lng)
-        await this.setState({carparkList:[], carparkMarkers: []})
+        await this.setState({showList: false, carparkList: []})
         const radius = this.state.radius/1000;
         let apiUrl = null;
         // method body
-        if(this.state.sortKey === "Distance")
+        if(sortKey === "Distance")
             apiUrl = this.distanceAPI;
-        else if(this.state.sortKey === "Availability")
+        else if(sortKey === "Availability")
             apiUrl = this.availabilityAPI;
+        await this.sleep(this.pauseTime);
 
         async function getClosestCarparks(lat, lng, radius, url) {
             const requestOptions = {
@@ -74,10 +76,7 @@ class Navigation extends React.Component{
 
         }
         const list = await getClosestCarparks(this.state.lat, this.state.lng, radius, apiUrl)
-        this.setState({
-            carparkList: list
-        })
-        const arr =this.state.carparkList.map((carpark,index) =>{
+        const arr =list.map((carpark) =>{
             const pos = carpark.Location;
             const values = pos.split(" ");
             return {
@@ -88,16 +87,22 @@ class Navigation extends React.Component{
 
         })
         this.setState({
-            carparkMarkers: arr
+            carparkList: list,
+            carparkMarkers: arr,
+            sortKey: sortKey
+        })
+        this.setState({
+            showList:true
         })
     }
 
     async handleRadiusChange(radius){
         console.log('radius', radius)
-        await this.setState({radius: radius, carparkList:[], carparkMarkers: []});
+        await this.setState({showList:false, carparkList: []});
         console.log("current State:", this.state)
+        await this.sleep(this.pauseTime);
         if(this.state.lat){
-            const radius = this.state.radius/1000;
+            const newRadius = radius/1000;
             let apiUrl = null;
             // method body
             if(this.state.sortKey === "Distance")
@@ -123,12 +128,8 @@ class Navigation extends React.Component{
                 return response['result'];
 
             }
-            const list = await getClosestCarparks(this.state.lat, this.state.lng, radius, apiUrl)
-            this.setState({
-                carparkList: list
-            })
-            console.log(this.state.carparkList)
-            const arr =this.state.carparkList.map((carpark,index) =>{
+            const list = await getClosestCarparks(this.state.lat, this.state.lng, newRadius, apiUrl)
+            const arr =list.map((carpark) =>{
                 const pos = carpark.Location;
                 const values = pos.split(" ");
                 return {
@@ -139,14 +140,18 @@ class Navigation extends React.Component{
 
             })
             this.setState({
-                carparkMarkers: arr
+                carparkList: list,
+                carparkMarkers: arr,
+                radius: radius,
+                showList: true
             })
         }
     }
 
     async handleLocation(lat,lng) {
         console.log(lat,lng)
-        await this.setState({lat: lat, lng: lng, carparkList:[], carparkMarkers: []})
+        await this.setState({lat: lat, lng: lng, showList: false, carparkList: []})
+        await this.sleep(this.pauseTime);
         const radius = this.state.radius/1000;
         let apiUrl = null;
         // method body
@@ -159,7 +164,6 @@ class Navigation extends React.Component{
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // TODO change radius to be dynamic
                 body: JSON.stringify({ maxDistanceToLocation: radius, locationLat: lat, locationLon: lng })
             };
             let response = null;
@@ -175,10 +179,7 @@ class Navigation extends React.Component{
 
         }
         const list = await getClosestCarparks(lat, lng, radius, apiUrl)
-        this.setState({
-            carparkList: list
-        })
-        const arr =this.state.carparkList.map((carpark,index) =>{
+        const arr =list.map((carpark) =>{
             const pos = carpark.Location;
             const values = pos.split(" ");
             return {
@@ -189,8 +190,11 @@ class Navigation extends React.Component{
 
         })
         this.setState({
-            carparkMarkers: arr
+            carparkList: list,
+            carparkMarkers: arr,
+            showList:true
         })
+
     }
 
     render() {
@@ -224,7 +228,7 @@ class Navigation extends React.Component{
                                 </Dropdown>
                             </div>
                             <div className="carparkBox">
-                                <CarparkList carparkList = {this.state.carparkList}/>
+                                <CarparkList carparkList = {this.state.carparkList} show = {this.state.showList}/>
                             </div>
                         </div>
                     </div>

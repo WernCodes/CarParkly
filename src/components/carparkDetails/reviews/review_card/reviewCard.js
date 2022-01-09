@@ -51,18 +51,18 @@ class ReviewCard extends React.Component{
                 </div>
                 <div className="rating">
                     <Rating name="read-only" value={this.state.Rating} readOnly />
-                    <Typography component="legend">{this.state.Date}</Typography>
+                    <Typography component="legend" style={{color: "#dddddd"}}>{this.state.Date}</Typography>
                     <div className="voteButtonsAndNumbers">
                         <div className="voteButtons">
-                            <button disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
+                            <button style={{color: "#dddddd"}} disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
                                 Upvote
                             </button>
-                            <button disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
+                            <button style={{color: "#dddddd"}} disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
                                 Downvote
                             </button>
                         </div>
                         <div className="numVotes">
-                            <Typography component="legend">{this.state.Votes}</Typography>
+                            <Typography component="legend" style={{color: "#dddddd"}}>{this.state.Votes}</Typography>
                         </div>
                     </div>
                 </div>
