@@ -11,6 +11,7 @@ import { Avatar } from 'antd';
 import 'antd/dist/antd.css';
 import ButtonFunction from "../shared/button";
 import NaviLinkFunction from "../shared/navi_link";
+import Animate from "rc-animate";
 
 const CarparkDetails = () =>{
     const [isLoading, setLoading] = useState(true);
@@ -186,7 +187,12 @@ const CarparkDetails = () =>{
                 </div>
                 {login}
             </div>
-            <div className="detailsAndYT">
+            <Animate
+                transitionName="fade"
+                component  = "span"
+                transitionAppear ={true}
+            >
+            <div className="detailsAndYT" key = "1">
                 <div className="detailsAndLinks">
                     <Details values ={state} lotClassification ={classification} availableLots = {availableLots} totalLots ={totalLots} lat = {lat} lng = {lng}/>
                     {/* TODO add in YT function */}
@@ -199,9 +205,10 @@ const CarparkDetails = () =>{
                 </div>
             </div>
 
-            <div className='communityReviews'>
+            <div className='communityReviews' key = "2">
                 <ReviewsList key={user} values = {state} loggedIn = {user}/>
             </div>
+            </Animate>
         </div>
     );
 }

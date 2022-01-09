@@ -8,6 +8,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 
 import MapView from "./gMapsView/mapView";
+import Animate from "rc-animate";
 
 class Navigation extends React.Component{
     carparkList;
@@ -209,7 +210,12 @@ class Navigation extends React.Component{
                 <div className ="header">
                     <TitleCard  text = {"Navigate"}/>
                 </div>
-                <div className="pageBody">
+                <Animate
+                    transitionName="fade"
+                    component  = "span"
+                    transitionAppear ={true}
+                >
+                <div className="pageBody" key ="1">
                     <div className="searchSection">
                         <div className="searchFilters">
                             <SearchFilters onRadiusChange={this.handleRadiusChange} defaultValue ={this.defaultSliderValue}/>
@@ -233,6 +239,7 @@ class Navigation extends React.Component{
                         </div>
                     </div>
                 </div>
+                </Animate>
             </div>
         );
     }

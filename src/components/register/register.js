@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import 'antd/dist/antd.css';
 import './register.css'
 import { Form, Input, Button } from 'antd';
@@ -6,9 +6,11 @@ import {LockOutlined, MailOutlined} from '@ant-design/icons';
 import {UserOutlined} from "@ant-design/icons";
 import TitleCard from "../shared/title";
 import NaviButtonFunction from "../shared/navi_button";
+import Animate from "rc-animate";
 
 const Register = () => {
     const [form] = Form.useForm();
+    const [isLoading, setIsLoading] = useState(true);
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [firstName, setFirstName] = useState();
@@ -22,6 +24,10 @@ const Register = () => {
     const storeUserFields = () => {
         handleRegisterClick(username, email, firstName, lastName, password);
     };
+
+    useEffect(() => {
+        setIsLoading(false)
+    },[]);
 
     // register function
     async function handleRegisterClick(username, email, firstName, lastName, password){
@@ -79,7 +85,12 @@ const Register = () => {
             <div className ="header">
                 <TitleCard  text = {"Register Account"}/>
             </div>
-            <div className='registerForm'>
+            <Animate
+                transitionName="fade"
+                component  = ""
+                transitionAppear ={true}
+            >
+            <div className='registerForm' key = "1">
                 <Form
                     form={form}
                     layout="vertical"
@@ -158,10 +169,11 @@ const Register = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">Register</Button>
+                        <Button type="primary" htmlType="submit" style={{ background: "#9F32B2" , borderColor: "#9F32B2" }}>Register</Button>
                     </Form.Item>
                 </Form>
             </div>
+            </Animate>
             {messageSection}
         </div>
     );

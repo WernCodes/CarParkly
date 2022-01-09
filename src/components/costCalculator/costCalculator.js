@@ -6,6 +6,7 @@ import {useLocation} from 'react-router-dom';
 import {TimePicker} from "antd";
 import ButtonFunction from "../shared/button";
 import Linkify from 'react-linkify';
+import Animate from "rc-animate";
 
 const CostCalculator = () =>{
     let calculatedSection;
@@ -159,7 +160,12 @@ const CostCalculator = () =>{
     return (
         <div className="costCalculator">
             <TitleCard  text = {"Cost Calculator"}/>
-            <div className="addressTimeRates">
+            <Animate
+                transitionName="fade"
+                component  = "span"
+                transitionAppear ={true}
+            >
+            <div className="addressTimeRates" key ="1">
                 <div className="addressAndTime">
                     <div className="addressText">
                         {state.name}
@@ -176,6 +182,7 @@ const CostCalculator = () =>{
                     }
                 </div>
             </div>
+            </Animate>
             {calculatedSection}
         </div>
     );

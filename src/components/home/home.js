@@ -3,6 +3,8 @@ import SearchBar from "../shared/searchBar";
 import React from "react";
 import NaviButtonFunction from "../shared/navi_button";
 import './home.css';
+import '../shared/fade.css';
+import Animate from "rc-animate";
 
 
 class Home extends React.Component{
@@ -24,13 +26,20 @@ class Home extends React.Component{
                 <div className ="header">
                     <TitleCard  text = {"Welcome to CarParkly!"}/>
                 </div>
-                <div className = "searchBar">
-                    <SearchBar handleSearch = {this.handleSearch} placeholder = "Search Car Parks Or Destination" tooltip = "Key in Destination names or Car Park locations"/>
-                </div>
-                <div className= "buttonSection">
-                    <NaviButtonFunction value = {"Navigation"} navigate={"navigation"}/>
-                </div>
+                <Animate
+                    transitionName="fade"
+                    component  = "span"
+                    transitionAppear ={true}
+                >
+                    <div className = "searchBar" key = "1">
+                        <SearchBar handleSearch = {this.handleSearch} placeholder = "Search Car Parks Or Destination" tooltip = "Key in Destination names or Car Park locations"/>
+                    </div>
+                    <div className= "buttonSection" key = "2">
+                        <NaviButtonFunction value = {"Navigation"} navigate={"navigation"}/>
+                    </div>
+                </Animate>
             </div>
+
         );
     }
 }
