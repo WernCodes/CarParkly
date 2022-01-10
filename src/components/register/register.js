@@ -36,7 +36,7 @@ const Register = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: username, email: email, first_name: firstName, last_name: lastName, password: password})
         };
-        await fetch("http://192.168.0.115:8080/api/registerUser", requestOptions)
+        await fetch(process.env.REACT_APP_API_URL+"/api/registerUser", requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body

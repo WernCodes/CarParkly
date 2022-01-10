@@ -28,8 +28,8 @@ class Navigation extends React.Component{
         this.handleLocation= this.handleLocation.bind(this)
         this.handleRadiusChange= this.handleRadiusChange.bind(this)
         this.handleSort = this.handleSort.bind(this)
-        this.distanceAPI= "http://192.168.0.115:8080/api/carparksByDistance"
-        this.availabilityAPI= "http://192.168.0.115:8080/api/carparksByAvailability"
+        this.distanceAPI= process.env.REACT_APP_API_URL+"/api/carparksByDistance"
+        this.availabilityAPI= process.env.REACT_APP_API_URL+"/api/carparksByAvailability"
 
 
     }

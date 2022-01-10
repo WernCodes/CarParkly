@@ -5,7 +5,7 @@ import {Statistic} from "antd";
 function retrieveCarparkAvailability(carparkId, typeOfCarpark) {
     if(typeOfCarpark === 'HDB'){
         return new Promise(function (resolve, reject) {
-            fetch("http://192.168.0.120:8080/api/HDBLots", {
+            fetch(process.env.REACT_APP_API_URL+"/api/HDBLots", {
                 method: "GET",
             })
                 .then(response => response.json())
@@ -25,7 +25,7 @@ function retrieveCarparkAvailability(carparkId, typeOfCarpark) {
     }
     else if(typeOfCarpark === 'URA'){
         return new Promise(function (resolve, reject) {
-            fetch("http://192.168.0.120:8080/api/URALots", {
+            fetch(process.env.REACT_APP_API_URL+"/api/URALots", {
                 method: "GET",
             })
                 .then(response => response.json())

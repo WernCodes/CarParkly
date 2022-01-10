@@ -36,7 +36,7 @@ class ReviewsList extends React.Component{
     }
 
     async retrieveReviews(carparkId, username) {
-        await fetch("http://192.168.0.115:8080/api/getReviews?carparkId="+carparkId+"&username="+username, {method: 'GET'})
+        await fetch(process.env.REACT_APP_API_URL+"/api/getReviews?carparkId="+carparkId+"&username="+username, {method: 'GET'})
             .then(response => response.json())
             .then(response => {
                     console.log(response);
@@ -78,7 +78,7 @@ class ReviewsList extends React.Component{
             headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ carparkId: this.state.carparkId, username: this.state.loggedIn, review: this.state.input, rating: this.state.rating })
         };
-        fetch("http://192.168.0.115:8080/api/addReview", requestOptions)
+        fetch(process.env.REACT_APP_API_URL+"/api/addReview", requestOptions)
             .then(response => response.json())
             .then(response => {
                     console.log(response);

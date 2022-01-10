@@ -53,7 +53,7 @@ const CostCalculator = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
         };
-        fetch("http://192.168.0.115:8080/api/rates", requestOptions)
+        fetch(process.env.REACT_APP_API_URL+"/api/rates", requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body
@@ -83,7 +83,7 @@ const CostCalculator = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, timeIn: startTime.format("HH:mm"), timeOut: endTime.format("HH:mm")})
         };
-        await fetch("http://192.168.0.115:8080/api/calculate", requestOptions)
+        await fetch(process.env.REACT_APP_API_URL+"/api/calculate", requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body

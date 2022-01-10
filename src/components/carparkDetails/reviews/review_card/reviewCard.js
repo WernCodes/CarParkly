@@ -29,7 +29,7 @@ class ReviewCard extends React.Component{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: this.state.CarparkId, commentId: this.state.CommentId, username: this.state.LoggedIn,  num: num })
         };
-        fetch("http://192.168.0.115:8080/api/editVotes", requestOptions)
+        fetch(process.env.REACT_APP_API_URL+"/api/editVotes", requestOptions)
             .then(response => response.json())
             .then(response => console.log(response)
             )

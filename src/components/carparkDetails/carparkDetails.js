@@ -45,7 +45,7 @@ const CarparkDetails = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
         };
-        fetch("http://192.168.0.115:8080/api/carpark", requestOptions)
+        fetch(process.env.REACT_APP_API_URL+"/api/carpark", requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body
@@ -152,7 +152,7 @@ const CarparkDetails = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: username, password: password})
         };
-        await fetch("http://192.168.0.115:8080/api/loginUser", requestOptions)
+        await fetch(process.env.REACT_APP_API_URL+"/api/loginUser", requestOptions)
             .then(response => response.json())
             .then(json => {
                 // body
