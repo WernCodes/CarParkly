@@ -7,6 +7,7 @@ import {TimePicker} from "antd";
 import ButtonFunction from "../shared/button";
 import Linkify from 'react-linkify';
 import Animate from "rc-animate";
+import moment from "moment";
 
 const CostCalculator = () =>{
     let calculatedSection;
@@ -68,7 +69,11 @@ const CostCalculator = () =>{
 
     // calculate cost function
     async function onCalculateClicked(){
-        if (startTime>=endTime){
+        await setCalculated(false)
+        const duration = moment.duration(endTime.diff(startTime));
+        var mins = Math.round(duration.asMinutes());
+        if (mins===0){
+            console.log("in here")
             setError('Start time must be before end time!')
             return
         }
