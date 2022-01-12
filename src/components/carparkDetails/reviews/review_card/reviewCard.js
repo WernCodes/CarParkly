@@ -54,10 +54,10 @@ class ReviewCard extends React.Component{
                     <Typography component="legend" style={{color: "#dddddd"}}>{this.state.Date}</Typography>
                     <div className="voteButtonsAndNumbers">
                         <div className="voteButtons">
-                            <button style={{color: "#dddddd"}} disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
+                            <button disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={(this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore)?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
                                 Upvote
                             </button>
-                            <button style={{color: "#dddddd"}} disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
+                            <button disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={(this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore)?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
                                 Downvote
                             </button>
                         </div>

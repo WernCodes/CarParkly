@@ -29,9 +29,13 @@
 
 .upvote{
     border-color: #dddddd;
+    background-color: #FF4500;
+    color:#dddddd;
 }
 .downvote{
     border-color: #dddddd;
+    background-color: #9494FF;
+    color: #dddddd;
 }
 .disabledUpvote{
     background-color: #dddddd;
