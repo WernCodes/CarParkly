@@ -45,9 +45,6 @@ const Register = () => {
                     setRegisterFailed(false)
                     setRegisterFailMessage(null)
                     setRegisterSuccessMessage("Registration successful!")
-                    localStorage.clear()
-                    // store the user in localStorage
-                    localStorage.setItem('user', json['result']['Username'])
                 }else{
                     console.log(json)
                     setRegisterFailed(true)
