@@ -3,7 +3,8 @@ import './reviewCard.css';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import {Avatar} from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import Button from 'antd/es/button';
 
 class ReviewCard extends React.Component{
     constructor(props) {
@@ -16,14 +17,16 @@ class ReviewCard extends React.Component{
             Review: this.props.reviewText,
             Date: this.props.date,
             Votes: this.props.votes,
-            Voted: false,
+            Upvoted: false,
+            Downvoted: false,
             LoggedIn: this.props.loggedIn,
             VotedBefore: this.props.votedBefore
         }
-        this.vote = this.vote.bind(this);
+        this.upvote = this.upvote.bind(this);
+        this.downvote = this.downvote.bind(this);
+        this.sendVote = this.sendVote.bind(this);
     }
-
-    vote(num){
+    sendVote(num){
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -36,13 +39,50 @@ class ReviewCard extends React.Component{
             .catch(err => {
                 console.log(err);
             });
-        this.setState({
-            Voted: true
-        });
+    }
+    upvote(){
+        if(this.state.Downvoted){
+            this.setState({
+                Downvoted: false,
+                Upvoted: true
+            });
+            this.sendVote(2);
+        }else if(this.state.Upvoted){
+            this.setState({
+                Upvoted: false
+            });
+            this.sendVote(-1);
+        } else{
+            this.setState({
+                Upvoted: true
+            });
+            this.sendVote(1);
+        }
     }
 
+    downvote(){
+        if(this.state.Upvoted){
+            this.setState({
+                Upvoted: false,
+                Downvoted: true
+            });
+            this.sendVote(-2);
+        }else if(this.state.Downvoted){
+            this.setState({
+                Downvoted: false
+            });
+            this.sendVote(1);
+        } else{
+            this.setState({
+                Downvoted: true
+            });
+            this.sendVote(-1);
+        }
+    }
 
     render(){
+        let disableUpVote =  !this.state.LoggedIn || this.state.VotedBefore;
+        let disableDownVote =  !this.state.LoggedIn || this.state.VotedBefore;
         return(
             <div className="reviewCard">
                 <div className="user">
@@ -54,12 +94,8 @@ class ReviewCard extends React.Component{
                     <Typography component="legend" style={{color: "#dddddd"}}>{this.state.Date}</Typography>
                     <div className="voteButtonsAndNumbers">
                         <div className="voteButtons">
-                            <button style={{color: "#dddddd"}} disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledUpvote":"upvote"} onClick={() => this.vote(1)}>
-                                Upvote
-                            </button>
-                            <button style={{color: "#dddddd"}} disabled = {this.state.Voted || !this.state.LoggedIn || this.state.VotedBefore} className={this.state.Voted?"disabledDownvote":"downvote"} onClick={() => this.vote(-1)}>
-                                Downvote
-                            </button>
+                            <Button style={disableUpVote || this.state.Downvoted?{background: "#999999", color: "#dddddd"}:{background: "#FF4500", color: "#dddddd" }} size = "large" block = "false" shape="circle" disabled = {disableUpVote} onClick={() => this.upvote()} icon={<ArrowUpOutlined />}/>
+                            <Button style={disableDownVote|| this.state.Upvoted?{background: "#999999", color: "#dddddd"}:{background: "#9494FF", color: "#dddddd" }} size = "large" block = "false" shape="circle" disabled = {disableDownVote} onClick={() => this.downvote()} icon={<ArrowDownOutlined />}/>
                         </div>
                         <div className="numVotes">
                             <Typography component="legend" style={{color: "#dddddd"}}>{this.state.Votes}</Typography>

@@ -48,28 +48,27 @@ function retrieveCarparkAvailability(carparkId, typeOfCarpark) {
 function Availability(props) {
     //var result = await retrieveCarparkAvailability(props.carparkId, props.agency);
     // console.log(result);
-    let availabilityColor;
+    let availabilityClass;
     switch (props.lotClassification) {
         case 'Open':
-            availabilityColor = '#69B34C';
+            availabilityClass = 'open';
             break;
         case 'Limited':
-            availabilityColor = '#FF8E15';
+            availabilityClass = 'limited';
             break;
         case 'Restricted':
-            availabilityColor = '#FF0D0D';
+            availabilityClass = 'restricted';
             break;
         default:
-            availabilityColor = '#69B34C';
+            availabilityClass = 'open';
             break;
     }
 
     //if(result['Availability'] === 'Open'){
     if(props.availableLots && props.totalLots) {
         return (
-            <div className="availabilityCard">
-                <Statistic title="Availability" value={props.availableLots} suffix={"/ " + props.totalLots}
-                           valueStyle={{color: availabilityColor}}/>
+            <div id="availability" className={availabilityClass}>
+                <Statistic title="Availability" value={props.availableLots} suffix={"/ " + props.totalLots}/>
             </div>
         );
     }else{

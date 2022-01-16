@@ -28,10 +28,10 @@
 }
 
 .upvote{
-    border-color: #dddddd;
+    color: #FF4500;
 }
 .downvote{
-    border-color: #dddddd;
+    color: #9494FF;
 }
 .disabledUpvote{
     background-color: #dddddd;
@@ -44,9 +44,12 @@
 .voteButtonsAndNumbers{
     display: flex;
     flex-direction: row;
-    width: 200px;
+    width: 10%;
     justify-content: space-between;
 }
 .voteButtons{
 }
-.numVotes{}
+.numVotes{
+    display: flex;
+    align-items: center;
+}

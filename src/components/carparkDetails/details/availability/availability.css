@@ -2,3 +2,21 @@
     background-color: #dddddd;
     text-align: center;
 }
+
+#availability.open{
+    background-color: #69B34C;
+    text-align: center;
+    font-weight: bold;
+}
+#availability.limited{
+    background-color: #FF8E15;
+    text-align: center;
+    font-weight: bold;
+
+}
+#availability.restricted{
+    background-color: #FF0D0D;
+    text-align: center;
+    font-weight: bold;
+
+}
