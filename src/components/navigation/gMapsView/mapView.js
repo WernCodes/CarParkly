@@ -17,7 +17,6 @@ import {
     ComboboxList,
     ComboboxOption,
 } from "@reach/combobox";
-import { formatRelative } from "date-fns";
 
 import "@reach/combobox/styles.css";
 
@@ -49,6 +48,7 @@ export default function MapView(props) {
     }, []);
 
     React.useEffect(() => {
+        setSelected(false);
         setCarparkMarkers(props.markers)
     }, [props.markers]);
 
