@@ -30,8 +30,7 @@ class Navigation extends React.Component{
         this.handleSort = this.handleSort.bind(this)
         this.distanceAPI= process.env.REACT_APP_API_URL+"/api/carparksByDistance"
         this.availabilityAPI= process.env.REACT_APP_API_URL+"/api/carparksByAvailability"
-
-
+        this.costAPI= process.env.REACT_APP_API_URL+"/api/carparksByCost"
     }
     handleSearch(e){
         console.log(e);
@@ -56,6 +55,8 @@ class Navigation extends React.Component{
             apiUrl = this.distanceAPI;
         else if(sortKey === "Availability")
             apiUrl = this.availabilityAPI;
+        else if(sortKey === "Cost")
+            apiUrl = this.costAPI;
         await this.sleep(this.pauseTime);
 
         async function getClosestCarparks(lat, lng, radius, url) {
@@ -110,11 +111,12 @@ class Navigation extends React.Component{
                 apiUrl = this.distanceAPI;
             else if(this.state.sortKey === "Availability")
                 apiUrl = this.availabilityAPI;
+            else if(this.state.sortKey === "Cost")
+                apiUrl = this.costAPI;
             async function getClosestCarparks(lat, lng, radius, url) {
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    // TODO change radius to be dynamic
                     body: JSON.stringify({ maxDistanceToLocation: radius, locationLat: lat, locationLon: lng })
                 };
                 let response = null;
@@ -160,6 +162,8 @@ class Navigation extends React.Component{
             apiUrl = this.distanceAPI;
         else if(this.state.sortKey === "Availability")
             apiUrl = this.availabilityAPI;
+        else if(this.state.sortKey === "Cost")
+            apiUrl = this.costAPI;
 
         async function getClosestCarparks(lat, lng, radius, url) {
             const requestOptions = {
@@ -201,14 +205,15 @@ class Navigation extends React.Component{
     render() {
         const menu = (
             <Menu onClick={this.handleSort}>
-                <Menu.Item className="menuItems"  key="Distance">Distance</Menu.Item>
+                <Menu.Item className="menuItems" key="Distance">Distance</Menu.Item>
                 <Menu.Item className="menuItems" key="Availability">Availability</Menu.Item>
+                <Menu.Item className="menuItems" key="Cost">Cost</Menu.Item>
             </Menu>
         );
         return (
             <div className="navigationPage">
                 <div className ="header">
-                    <TitleCard  text = {"Navigate"}/>
+                    <TitleCard  text = {"CarParkly"}/>
                 </div>
                 <Animate
                     transitionName="fade"

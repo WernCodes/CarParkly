@@ -19,7 +19,7 @@ class CarparkList extends React.Component{
         const Carparks = this.props.carparkList;
         console.log(Carparks)
         let itemList=Carparks.map((carpark, index) =>
-                <CarparkCard key = {carpark.CarParkID+index} carparkId = {carpark.CarParkID} name = {carpark.Name} availableLots = {carpark.AvailableLots} location = {carpark.Location} agency = {carpark.Agency}/>
+                <CarparkCard key = {carpark.CarParkID+index} carparkId = {carpark.CarParkID} name = {carpark.Name} availableLots = {carpark.AvailableLots} location = {carpark.Location} agency = {carpark.Agency} cost = {carpark.TempCost}/>
             )
         if (Carparks.length === 0){
             return(
@@ -27,10 +27,14 @@ class CarparkList extends React.Component{
             )
         }
         return(
-            <div className="carparkList">
-                <QueueAnim delay={50} className="queue-simple">
-                    {this.state.show ? itemList : null}
-                </QueueAnim>
+            <div>
+                <div className="disclaimer">*Cost is based on 1 hour stay from current time</div>
+                <div className="carparkList">
+                    <QueueAnim delay={50} className="queue-simple">
+                        {this.state.show ? itemList : null}
+                    </QueueAnim>
+
+                </div>
             </div>
         );
     }
