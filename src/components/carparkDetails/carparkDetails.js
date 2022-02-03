@@ -12,11 +12,13 @@ import 'antd/dist/antd.css';
 import ButtonFunction from "../shared/button";
 import NaviLinkFunction from "../shared/navi_link";
 import Animate from "rc-animate";
+import Texty from "rc-texty";
 
 const CarparkDetails = () =>{
     const [isLoading, setLoading] = useState(true);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [loginMessage, setLoginMessage] = useState();
     const [availableLots, setAvailableLots] = useState(null);
     const [totalLots, setTotalLots] = useState(null);
     const [classification, setClassification] = useState("Open")
@@ -136,8 +138,15 @@ const CarparkDetails = () =>{
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button" style={{ background: "#9F32B2", borderColor: "#9F32B2"  }} >
                             Log in
-                        </Button> Or <NaviLinkFunction value = {"Register"} navigate={"register"} />
-
+                        </Button> <div style={{color: "#dddddd"}}>Or</div> <NaviLinkFunction value = {"Register"} navigate={"register"} />
+                        {loginMessage && (
+                            <Texty
+                                type={"mask-top"}
+                                mode={"sync"}
+                                style={{color:"red"}}>
+                                {loginMessage}
+                            </Texty>
+                        )}
                     </Form.Item>
                 </Form>
             </div>
@@ -147,6 +156,7 @@ const CarparkDetails = () =>{
 
     // log in function
     async function handleLogInClick(username, password){
+        setLoginMessage(null)
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -163,7 +173,9 @@ const CarparkDetails = () =>{
                     // store the user in localStorage
                     localStorage.setItem('user', json['result']['Username'])
                 }else{
-                    console.log("login failed")
+                    console.log(json);
+                    console.log("login failed");
+                    setLoginMessage(json['error']);
                 }
 
             })
@@ -182,6 +194,7 @@ const CarparkDetails = () =>{
     return (
         <div className="carparkDetails">
             <div className="carparkDetailsHeader">
+                <div className="dummy"/>
                 <div className='carparkDetailstitle'>
                     <TitleCard  text = {state.name}/>
                 </div>

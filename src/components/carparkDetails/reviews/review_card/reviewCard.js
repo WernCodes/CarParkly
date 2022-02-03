@@ -26,11 +26,11 @@ class ReviewCard extends React.Component{
         this.downvote = this.downvote.bind(this);
         this.sendVote = this.sendVote.bind(this);
     }
-    sendVote(num){
+    sendVote(num, neutral){
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ carparkId: this.state.CarparkId, commentId: this.state.CommentId, username: this.state.LoggedIn,  num: num })
+            body: JSON.stringify({ carparkId: this.state.CarparkId, commentId: this.state.CommentId, username: this.state.LoggedIn,  num: num, neutral:neutral })
         };
         fetch(process.env.REACT_APP_API_URL+"/api/editVotes", requestOptions)
             .then(response => response.json())
@@ -46,17 +46,17 @@ class ReviewCard extends React.Component{
                 Downvoted: false,
                 Upvoted: true
             });
-            this.sendVote(2);
+            this.sendVote(2, false);
         }else if(this.state.Upvoted){
             this.setState({
                 Upvoted: false
             });
-            this.sendVote(-1);
+            this.sendVote(-1, true);
         } else{
             this.setState({
                 Upvoted: true
             });
-            this.sendVote(1);
+            this.sendVote(1, false);
         }
     }
 
@@ -66,17 +66,17 @@ class ReviewCard extends React.Component{
                 Upvoted: false,
                 Downvoted: true
             });
-            this.sendVote(-2);
+            this.sendVote(-2, false);
         }else if(this.state.Downvoted){
             this.setState({
                 Downvoted: false
             });
-            this.sendVote(1);
+            this.sendVote(1, true);
         } else{
             this.setState({
                 Downvoted: true
             });
-            this.sendVote(-1);
+            this.sendVote(-1, false);
         }
     }
 

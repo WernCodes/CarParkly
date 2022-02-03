@@ -11,20 +11,35 @@
 }
 .carparkDetailsHeader{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .carparkDetailstitle{
-    float: left;
+    flex: 5;
 }
 .carparkDetailslogin{
     float: right;
+    display: flex;
+    flex: 0.7;
+    margin-right: 2rem;
     width: 20%;
 }
 .carparkDetailsavatar{
     float: right;
     display: flex;
+    flex: 0.7;
+    margin-right: 1rem;
+    flex-direction: row;
+}
+
+.dummy{
+    visibility: hidden;
+    float: left;
+    display: flex;
+    flex: 0.7;
+    margin-right: 2rem;
     flex-direction: row;
 }
 .communityReviews{
