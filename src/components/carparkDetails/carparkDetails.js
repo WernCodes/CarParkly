@@ -13,6 +13,7 @@ import ButtonFunction from "../shared/button";
 import NaviLinkFunction from "../shared/navi_link";
 import Animate from "rc-animate";
 import Texty from "rc-texty";
+import CarparkStreetView from "./streetView/carparkStreetView";
 
 const CarparkDetails = () =>{
     const [isLoading, setLoading] = useState(true);
@@ -210,11 +211,8 @@ const CarparkDetails = () =>{
                     <Details values ={state} lotClassification ={classification} availableLots = {availableLots} totalLots ={totalLots} lat = {lat} lng = {lng}/>
                     {/* TODO add in YT function */}
                 </div>
-                <div className = "YT">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/onOY6tg3y24"
-                            title="YouTube video player" frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen/>
+                <div className="streetView">
+                    <CarparkStreetView lat={lat} lng = {lng}/>
                 </div>
             </div>
 
@@ -225,4 +223,11 @@ const CarparkDetails = () =>{
         </div>
     );
 }
+/* <div className = "YT">
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/onOY6tg3y24"
+             title="YouTube video player" frameBorder="0"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+             allowFullScreen/>
+ </div>
+*/
 export default CarparkDetails;
