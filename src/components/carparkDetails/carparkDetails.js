@@ -14,6 +14,7 @@ import NaviLinkFunction from "../shared/navi_link";
 import Animate from "rc-animate";
 import Texty from "rc-texty";
 import CarparkStreetView from "./streetView/carparkStreetView";
+import Linkify from "react-linkify";
 
 const CarparkDetails = () =>{
     const [isLoading, setLoading] = useState(true);
@@ -26,8 +27,12 @@ const CarparkDetails = () =>{
     const [lat, setLat] = useState(null);
     const [lng, setLng] = useState(null);
     const [user, setUser] = useState(null);
+    const [rates, setRates] = useState(null);
     const location = useLocation();
     let login = null;
+    let ratesSection;
+    const hdbMessage = "For details on HDB Rates, please visit https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges"
+
     const state = {
         carparkId: location.state.Id,
         name: location.state.Name,
@@ -43,7 +48,7 @@ const CarparkDetails = () =>{
         if (loggedInUser) {
             setUser(loggedInUser);
         }
-        const requestOptions = {
+        let requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
@@ -55,12 +60,22 @@ const CarparkDetails = () =>{
                 console.log(json);
                 const pos = json['result']['Carpark']['Location'];
                 const values = pos.split(" ");
-
                 setAvailableLots(json['result']['LotData']['AvailableLots']);
                 setTotalLots(json['result']['LotData']['TotalLots']);
                 setClassification(json['result']['LotData']['AvailabilityClassification'])
                 setLat(parseFloat(values[0]));
                 setLng(parseFloat(values[1]));
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        fetch(process.env.REACT_APP_API_URL+"/api/rates", requestOptions)
+            .then(response => response.json())
+            .then(json => {
+                // body
+                console.log(json['result']);
+                setRates(json['result']);
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
@@ -154,6 +169,36 @@ const CarparkDetails = () =>{
         )
 
     }
+    if(rates) {
+        if (state.agency === 'HDB') {
+            ratesSection = (<div className='URASingleRate'>
+                    {Object.keys(rates).map((key, index) => (
+                        <p key={index}>{key} : {rates[key]}</p>
+                    ))}
+                    <Linkify properties={{target: '_blank', style: {color: '#000000'}}} key={hdbMessage}>Message
+                        : {hdbMessage}</Linkify>
+                </div>
+            )
+        } else if (state.agency === 'URA') {
+            ratesSection = rates.map((rate) => {
+                    return <div className="URASingleRate">
+                        {Object.keys(rate).map((key, index) => (
+                            <p key={index}>{key} : {rate[key]}</p>
+                        ))}
+                    </div>
+                }
+            )
+        } else if (state.agency === 'LTA') {
+            ratesSection = rates.map((rate) => {
+                    return <div className="URASingleRate">
+                        {Object.keys(rate).map((key, index) => (
+                            <p key={index}>{key} : {rate[key]}</p>
+                        ))}
+                    </div>
+                }
+            )
+        }
+    }
 
     // log in function
     async function handleLogInClick(username, password){
@@ -167,7 +212,8 @@ const CarparkDetails = () =>{
             .then(response => response.json())
             .then(json => {
                 // body
-                if(json['status']!==400){
+                console.log(json)
+                if(json['status']==="success"){
                     console.log("login success:", json)
                     localStorage.clear()
                     setUser(json['result']['Username'])
@@ -209,14 +255,17 @@ const CarparkDetails = () =>{
             <div className="detailsAndYT" key = "1">
                 <div className="detailsAndLinks">
                     <Details values ={state} lotClassification ={classification} availableLots = {availableLots} totalLots ={totalLots} lat = {lat} lng = {lng}/>
-                    {/* TODO add in YT function */}
                 </div>
                 <div className="streetView">
                     <CarparkStreetView lat={lat} lng = {lng}/>
                 </div>
             </div>
+            <div className="ratesTable" key = "2">
+                <div className="ratesText">Rates</div>
+                {ratesSection}
+            </div>
 
-            <div className='communityReviews' key = "2">
+            <div className='communityReviews' key = "3">
                 <ReviewsList key={user} values = {state} loggedIn = {user}/>
             </div>
             </Animate>

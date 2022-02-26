@@ -28,14 +28,11 @@ class CarparkCard extends React.Component{
             <div className="card">
                 <div className="name_and_lots">
                     <div className="carparkName">{this.state.Name}</div>
-                    <div className="availableLots">Available lots: {this.state.AvailableLots}</div>
-                    <div className="costCard">Cost: {this.state.Cost['Cost']}</div>
-                    {Object.keys(this.state.Cost['Remarks']).length?
-                    <div className="remarksCard">Remarks: {this.state.Cost['Remarks']}</div>:null
-                    }
+                    <div className="availableLots">Available lots: {this.state.AvailableLots?this.state.AvailableLots:"Info not available"}</div>
+                    <div className="costCard">Cost: {"Cost" in this.state.Cost?this.state.Cost['Cost']:this.state.Cost['Remarks']}</div>
                 </div>
                 <div className="view" >
-                    <NaviButtonWithParamsFunction value = {"View"} navigate={"carpark"} state = {this.state}/>
+                    <NaviButtonWithParamsFunction value = {"Details & Rates"} navigate={"carpark"} state = {this.state}/>
                 </div>
                 <div className="navigate" >
                     <ButtonFunction value = {"Navigate"} handleClick={this.handleNavigateClick}/>

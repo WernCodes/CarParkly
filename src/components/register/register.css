@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: space-between;
     flex: 2;
+    color: #dddddd;
 }
 .goHomeButton{
     width: 10%;

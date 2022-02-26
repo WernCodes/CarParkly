@@ -3,8 +3,8 @@ import React from "react";
 import './navigation.css';
 import SearchFilters from "./search_filters/searchFilters";
 import CarparkList from "./carpark_list/carparkList";
-import { Menu, Dropdown } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Radio } from 'antd';
+
 
 
 import MapView from "./gMapsView/mapView";
@@ -36,10 +36,13 @@ class Navigation extends React.Component{
         console.log(e);
     }
 
-    handleSort = ({ key }) => {
-        console.log(key)
+    handleSort = e => {
+        console.log(e.target.value)
+        this.setState({
+            sortKey: e.target.value
+        })
         if(this.state.lat){
-            this.refreshCarparks(key)
+            this.refreshCarparks(e.target.value)
         }
     };
     sleep = (milliseconds) => {
@@ -204,11 +207,11 @@ class Navigation extends React.Component{
 
     render() {
         const menu = (
-            <Menu onClick={this.handleSort}>
-                <Menu.Item className="menuItems" key="Distance">Distance</Menu.Item>
-                <Menu.Item className="menuItems" key="Availability">Availability</Menu.Item>
-                <Menu.Item className="menuItems" key="Cost">Cost</Menu.Item>
-            </Menu>
+            <Radio.Group onChange={this.handleSort} value={this.state.sortKey} optionType="button" buttonStyle="solid" size="middle">
+                <Radio.Button value={"Distance"}>Distance</Radio.Button>
+                <Radio.Button value={"Availability"}>Availability</Radio.Button>
+                <Radio.Button value={"Cost"}>Cost</Radio.Button>
+            </Radio.Group>
         );
         return (
             <div className="navigationPage">
@@ -231,12 +234,9 @@ class Navigation extends React.Component{
                             <MapView onLocationChange = {this.handleLocation} markers = {this.state.carparkMarkers}/>
                         </div>
                         <div className="carparks">
-                            <div className= "dropdown">
-                                <Dropdown overlay={menu}>
-                                    <a className="sortDropdown" onClick={e => e.preventDefault()}>
-                                        Sort <DownOutlined />
-                                    </a>
-                                </Dropdown>
+                            <div className= "sortBox">
+                                <div className="sortText">Sort:</div>
+                                {menu}
                             </div>
                             <div className="carparkBox">
                                 <CarparkList carparkList = {this.state.carparkList} show = {this.state.showList}/>

@@ -44,7 +44,7 @@ const Register = () => {
                     console.log("register success:", json)
                     setRegisterFailed(false)
                     setRegisterFailMessage(null)
-                    setRegisterSuccessMessage("Registration successful!")
+                    setRegisterSuccessMessage(json['result'])
                 }else{
                     console.log(json)
                     setRegisterFailed(true)

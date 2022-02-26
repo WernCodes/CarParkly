@@ -22,6 +22,7 @@ const CostCalculator = () =>{
     const [endTime, setEndTime] = useState(null);
     const [error, setError] = useState(null);
     const [timesSelected, setTimesSelected]= useState(false)
+    const hdbMessage = "For details on HDB Rates, please visit https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges"
 
 
     const location = useLocation();
@@ -37,13 +38,17 @@ const CostCalculator = () =>{
     const onChangeStartTime = time => {
         setStartTime(time);
         if(endTime){
-            setTimesSelected(true)
+            if(time<endTime) {
+                setTimesSelected(true)
+            }
         }
     };
     const onChangeEndTime = time => {
         setEndTime(time);
         if(startTime){
-            setTimesSelected(true)
+            if(startTime<time) {
+                setTimesSelected(true)
+            }
         }
     };
 
@@ -110,9 +115,11 @@ const CostCalculator = () =>{
     }
 
     if(state.agency==='HDB'){
-        ratesSection = (<div className='HDBRates'>
-            <Linkify properties={{ target: '_blank', style: { color: '#000000' } }} key = {rates['Message']}>Message : {rates['Message']}</Linkify>
-            <p key={rates['Central Car Park?']}>Central Car Park? : {rates['Central Car Park?']}</p>
+        ratesSection = (<div className='URASingleRate'>
+                {Object.keys(rates).map((key, index) => (
+                    <p key={index}>{key} : {rates[key]}</p>
+                ))}
+            <Linkify properties={{ target: '_blank', style: { color: '#000000' } }} key = {hdbMessage}>Message : {hdbMessage}</Linkify>
         </div>
         )
     }else if (state.agency==='URA'){
@@ -121,6 +128,15 @@ const CostCalculator = () =>{
                 {Object.keys(rate).map((key, index) => (
                     <p key={index}>{key} : {rate[key]}</p>
                 ))}
+                </div>
+            }
+        )
+    }else if (state.agency==='LTA'){
+        ratesSection =rates.map((rate) => {
+                return <div className="URASingleRate">
+                    {Object.keys(rate).map((key, index) => (
+                        <p key={index}>{key} : {rate[key]}</p>
+                    ))}
                 </div>
             }
         )
@@ -175,11 +191,13 @@ const CostCalculator = () =>{
                     <div className="addressText">
                         {state.name}
                     </div>
-                    <div className="time">
-                        <TimePicker placeholder="Start Time" format="HH:mm" value={startTime} onChange={onChangeStartTime} />
-                        <TimePicker placeholder="End Time" format="HH:mm" value={endTime} onChange={onChangeEndTime} />
-                        <ButtonFunction disabled={!timesSelected} value = {"Calculate!"} handleClick = {onCalculateClicked}/>
-                    </div>
+                    {state.agency!=='LTA'?<div className="time">
+                        <TimePicker placeholder="Start Time" format="HH:mm" value={startTime}
+                                    onChange={onChangeStartTime}/>
+                        <TimePicker placeholder="End Time" format="HH:mm" value={endTime} onChange={onChangeEndTime}/>
+                        <ButtonFunction disabled={!timesSelected} value={"Calculate!"}
+                                        handleClick={onCalculateClicked}/>
+                    </div>:null}
                 </div>
                 <div className="rates">
                     {
