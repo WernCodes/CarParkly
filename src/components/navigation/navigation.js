@@ -156,6 +156,10 @@ class Navigation extends React.Component{
 
     async handleLocation(lat,lng) {
         console.log(lat,lng)
+        console.log(this.distanceAPI);
+        console.log(this.availabilityAPI);
+        console.log(this.costAPI);
+
         await this.setState({lat: lat, lng: lng, showList: false, carparkList: []})
         await this.sleep(this.pauseTime);
         const radius = this.state.radius/1000;

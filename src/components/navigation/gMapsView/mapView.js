@@ -61,7 +61,7 @@ export default function MapView(props) {
                 lng: lng,
             });
         props.onLocationChange(lat,lng);
-    }, []);
+    }, [props]);
 
 
     if (loadError) return "Error";
