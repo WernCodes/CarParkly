@@ -88,6 +88,7 @@ const CostCalculator = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, timeIn: startTime.format("HH:mm"), timeOut: endTime.format("HH:mm")})
         };
+        var t0 = performance.now();
         await fetch(process.env.REACT_APP_API_URL+"/api/calculate", requestOptions)
             .then(response => response.json())
             .then(json => {
@@ -101,6 +102,8 @@ const CostCalculator = () =>{
             .catch(err => {
                 console.log(err);
             });
+        var t1 = performance.now();
+        console.log("Call to fetch calculate API " + (t1 - t0) + " milliseconds.");
     }
 
     if (isLoading) {

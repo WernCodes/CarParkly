@@ -76,7 +76,6 @@ class Navigation extends React.Component{
                     console.log(json);
                     response = json;
                 });
-            console.log("Completed");
             return response['result'];
 
         }
@@ -179,6 +178,7 @@ class Navigation extends React.Component{
                 body: JSON.stringify({ maxDistanceToLocation: radius, locationLat: lat, locationLon: lng })
             };
             let response = null;
+            var t0 = performance.now();
             await fetch(url, requestOptions)
                 .then((response) => response.json())
                 .then((json) => {
@@ -186,7 +186,8 @@ class Navigation extends React.Component{
                     console.log(json);
                     response = json;
                 });
-            console.log("Completed");
+            var t1 = performance.now();
+            console.log("Call to fetch car parks API " + (t1 - t0) + " milliseconds.");
             return response['result'];
 
         }

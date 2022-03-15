@@ -53,6 +53,7 @@ const CarparkDetails = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
         };
+        var t0 = performance.now();
         fetch(process.env.REACT_APP_API_URL+"/api/carpark", requestOptions)
             .then(response => response.json())
             .then(json => {
@@ -80,6 +81,8 @@ const CarparkDetails = () =>{
             .catch(err => {
                 console.log(err);
             });
+        var t1 = performance.now();
+        console.log("Call to fetch car park details " + (t1 - t0) + " milliseconds.");
         setLoading(false);
     },[state.agency, state.carparkId]);
 

@@ -36,6 +36,7 @@ const Register = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: username, email: email, first_name: firstName, last_name: lastName, password: password})
         };
+        var t0 = performance.now();
         await fetch(process.env.REACT_APP_API_URL+"/api/registerUser", requestOptions)
             .then(response => response.json())
             .then(json => {
@@ -56,6 +57,8 @@ const Register = () => {
             .catch(err => {
                 console.log(err);
             });
+        var t1 = performance.now();
+        console.log("Call to fetch calculate API " + (t1 - t0) + " milliseconds.");
     }
     if(registerFailed){
         if(registerFailMessage){
