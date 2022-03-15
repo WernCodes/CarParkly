@@ -22,7 +22,7 @@ function Availability(props) {
     }
 
     //if(result['Availability'] === 'Open'){
-    if(props.availableLots && props.totalLots) {
+    if(!(Object.is(props.availableLots, undefined)||Object.is(props.availableLots, null)) && !(Object.is(props.totalLots, undefined)||Object.is(props.totalLots, null))) {
         return (
             <div id="availability" className={availabilityClass}>
                 <Statistic title="Availability" value={props.availableLots} suffix={"/ " + props.totalLots}/>

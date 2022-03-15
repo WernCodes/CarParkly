@@ -28,7 +28,7 @@ class CarparkCard extends React.Component{
             <div className="card">
                 <div className="name_and_lots">
                     <div className="carparkName">{this.state.Name}</div>
-                    <div className="availableLots">Available lots: {this.state.AvailableLots?this.state.AvailableLots:"Info not available"}</div>
+                    <div className="availableLots">Available lots: {(Object.is(this.state.AvailableLots, undefined)||Object.is(this.state.AvailableLots, null))?"Info not available":this.state.AvailableLots}</div>
                     <div className="costCard">Cost: {"Cost" in this.state.Cost?"$"+this.state.Cost['Cost']:this.state.Cost['Remarks']}</div>
                 </div>
                 <div className="view" >
