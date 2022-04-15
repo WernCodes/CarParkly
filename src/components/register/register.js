@@ -8,6 +8,7 @@ import TitleCard from "../shared/title";
 import NaviButtonFunction from "../shared/navi_button";
 import Animate from "rc-animate";
 
+// component that renders the account registration page
 const Register = () => {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +30,7 @@ const Register = () => {
         setIsLoading(false)
     },[]);
 
-    // register function
+    // API call to register for account
     async function handleRegisterClick(username, email, firstName, lastName, password){
         const requestOptions = {
             method: 'POST',

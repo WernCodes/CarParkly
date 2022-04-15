@@ -1,4 +1,4 @@
-.detailsAndYT{
+.detailsAndStreet{
     padding-top: 10px;
     display: flex;
     justify-content: center;
@@ -7,8 +7,7 @@
     width: 30%;
     padding-right: 2rem;
 }
-.YT{
-}
+
 .carparkDetailsHeader{
     display: flex;
     flex-direction: row;

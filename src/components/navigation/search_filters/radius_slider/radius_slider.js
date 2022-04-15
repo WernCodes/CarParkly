@@ -4,9 +4,8 @@ import 'antd/dist/antd.css';
 import './radius_slider.css';
 import {Slider} from 'antd';
 
-
+// component to render the radius slider
 function RadiusSlider(props) {
-
     return(
         <>
             <Slider defaultValue={props.defaultValue} disabled={props.disabled} max = {props.max} min = {props.min} onAfterChange={props.onAfterChange}/>

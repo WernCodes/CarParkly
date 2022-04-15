@@ -3,7 +3,7 @@ import Texty from 'rc-texty';
 import './title.css'
 import 'rc-texty/assets/index.css';
 
-
+// Reusable title component to render
 function TitleCard(props) {
         return (
             <div className="ant-page-header-heading" style={{ marginTop: 16 }}>

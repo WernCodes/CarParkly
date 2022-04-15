@@ -1,6 +1,7 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
 
+// Text link to navigate web page
 function NaviLinkFunction(props) {
     const history = useHistory();
     function HandleClick(navigationRoute) {

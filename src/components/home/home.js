@@ -6,7 +6,7 @@ import './home.css';
 import '../shared/fade.css';
 import Animate from "rc-animate";
 
-
+// component that loads a home page. It is not used any where in this app. It is here as a reference for future development
 class Home extends React.Component{
     constructor(props){
         super(props);
@@ -22,7 +22,7 @@ class Home extends React.Component{
 
     render(){
         return (
-            <div className="game" >
+            <div className="homePage" >
                 <div className ="header">
                     <TitleCard  text = {"Welcome to CarParkly!"}/>
                 </div>

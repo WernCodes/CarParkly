@@ -3,6 +3,7 @@ import Button from 'antd/es/button';
 import './button.css'
 import {useHistory} from "react-router-dom";
 
+// Reusable button component that has the ability to navigate to another page
 function NaviButtonFunction(props) {
         const history = useHistory();
     function HandleClick(navigationRoute) {

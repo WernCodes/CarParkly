@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import './searchFilters.css';
 import RadiusSlider from "./radius_slider/radius_slider";
 
+// component to render the radius slider section
 class SearchFilters extends React.Component{
 
     constructor(props) {

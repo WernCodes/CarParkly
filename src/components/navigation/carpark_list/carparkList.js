@@ -2,6 +2,8 @@ import React from 'react';
 import './carparkList.css';
 import CarparkCard from "./carpark_card/carparkCard";
 import QueueAnim from 'rc-queue-anim';
+
+// component that renders the list of car parks. List of car parks passed in as props
 class CarparkList extends React.Component{
     constructor(props) {
         super(props);
@@ -9,11 +11,6 @@ class CarparkList extends React.Component{
             show: true
         };
 
-    }
-    onClick = () => {
-        this.setState({
-            show: !this.state.show
-        });
     }
     render(){
         const Carparks = this.props.carparkList;
@@ -31,9 +28,8 @@ class CarparkList extends React.Component{
                 <div className="disclaimer">*Cost is based on 1 hour stay from current time</div>
                 <div className="carparkList">
                     <QueueAnim delay={50} className="queue-simple">
-                        {this.state.show ? itemList : null}
+                        {itemList}
                     </QueueAnim>
-
                 </div>
             </div>
         );

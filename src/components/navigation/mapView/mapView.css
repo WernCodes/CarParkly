@@ -9,12 +9,10 @@
     max-width: 400px;
 
 }
-
 .search input {
     font-size: 1.5rem;
     width: 100%;
 }
-
 .locate {
     position: relative;
     background: none;

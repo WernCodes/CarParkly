@@ -7,6 +7,8 @@ const mapStyles = {
     height: '100%'
 };
 const googleApiKey =  process.env.REACT_APP_GOOGLE_API_KEY
+
+// This MapContainer is not used in the app but kept here as a reference that was taken form online sources
 class MapContainer extends React.Component {
     state = {
         showingInfoWindow: false,  // Hides or shows the InfoWindow

@@ -1,6 +1,7 @@
 
 import Streetview from 'react-google-streetview';
 
+// component to render the Google Street view for a car park details page
 function CarparkStreetView(props) {
     const googleApiKey =  process.env.REACT_APP_GOOGLE_API_KEY
 

@@ -35,12 +35,12 @@ class ReviewsList extends React.Component{
         this.retrieveReviews(this.state.carparkId, this.state.loggedIn);
     }
 
+    // API call to retrieve all reviews for this car park. Username is passed in to check if this user has voted or reviewed before.
     async retrieveReviews(carparkId, username) {
         await fetch(process.env.REACT_APP_API_URL+"/api/getReviews?carparkId="+carparkId+"&username="+username, {method: 'GET'})
             .then(response => response.json())
             .then(response => {
                     console.log(response);
-                    // TODO add backend data
                     this.setState({
                         isLoading:false,
                         reviews: response['result']
@@ -69,6 +69,8 @@ class ReviewsList extends React.Component{
             rating: value
         });
     }
+
+    // API call to submit a review to the back end
     onSubmitReviewClicked(e){
         console.log(this.state.input);
         console.log(this.state.rating);
@@ -93,6 +95,7 @@ class ReviewsList extends React.Component{
     }
 
     render(){
+        // if the user clicks the add review button
         if (this.state.addReview) {
             if(!this.state.submitReview){
                 const { TextArea } = Input;
@@ -117,6 +120,7 @@ class ReviewsList extends React.Component{
                 )
             }
         } else{
+            // if the user is logged in but has not clicked the add review button
             if(this.state.loggedIn){
                 this.displayReview = (
                     <div className="writeReview">
@@ -147,6 +151,7 @@ class ReviewsList extends React.Component{
             )
 
         }else {
+            // for each review retrieved for this car park, render the reviewCard component
             itemList = this.state.reviews.map((review) =>
                 <ReviewCard carparkId={review['CarParkID']} commentId={review['CommentID']} user={review['Username']}
                             rating={review['Rating']} reviewText={review['Review']} date={review['Date']} votes={review['Votes']} loggedIn = {this.state.loggedIn} votedBefore = {review['Voted']}/>

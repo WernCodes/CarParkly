@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'antd/es/button';
 import './button.css'
 
+// Reusable button component
 function ButtonFunction(props) {
     return (
         <div className="button">

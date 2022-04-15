@@ -23,7 +23,7 @@ const CarparkDetails = () =>{
     const [loginMessage, setLoginMessage] = useState();
     const [availableLots, setAvailableLots] = useState(null);
     const [totalLots, setTotalLots] = useState(null);
-    const [classification, setClassification] = useState("Open")
+    const [classification, setClassification] = useState("Open") // this refers to the availability classification. Based on the number of available lots.
     const [lat, setLat] = useState(null);
     const [lng, setLng] = useState(null);
     const [user, setUser] = useState(null);
@@ -53,7 +53,9 @@ const CarparkDetails = () =>{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ carparkId: state.carparkId, agency: state.agency})
         };
+        // used to measure time performance of API
         var t0 = performance.now();
+        // API call to retrieve car park details
         fetch(process.env.REACT_APP_API_URL+"/api/carpark", requestOptions)
             .then(response => response.json())
             .then(json => {
@@ -70,6 +72,7 @@ const CarparkDetails = () =>{
             .catch(err => {
                 console.log(err);
             });
+        // API call to retrieve rates for the car park
         fetch(process.env.REACT_APP_API_URL+"/api/rates", requestOptions)
             .then(response => response.json())
             .then(json => {
@@ -81,6 +84,7 @@ const CarparkDetails = () =>{
             .catch(err => {
                 console.log(err);
             });
+        // used to measure time performance of API
         var t1 = performance.now();
         console.log("Call to fetch car park details " + (t1 - t0) + " milliseconds.");
         setLoading(false);
@@ -92,11 +96,13 @@ const CarparkDetails = () =>{
         </div>;
     }
 
+    // if there is no valid carparkId
     if(!state.carparkId){
         console.log("going home");
         RouteNavigation("")
     }
 
+    // This section is to determine what to load at the top right of the page, a login prompt or logged in message
     // if a user is already logged in
     if (user){
         login = (
@@ -172,6 +178,7 @@ const CarparkDetails = () =>{
         )
 
     }
+    // This section determines how to render the rates of the car park based on the agency
     if(rates) {
         if (state.agency === 'HDB') {
             ratesSection = (<div className='URASingleRate'>
@@ -203,7 +210,7 @@ const CarparkDetails = () =>{
         }
     }
 
-    // log in function
+    // API call for log in function
     async function handleLogInClick(username, password){
         setLoginMessage(null)
         const requestOptions = {
@@ -255,7 +262,7 @@ const CarparkDetails = () =>{
                 component  = "span"
                 transitionAppear ={true}
             >
-            <div className="detailsAndYT" key = "1">
+            <div className="detailsAndStreet" key = "1">
                 <div className="detailsAndLinks">
                     <Details values ={state} lotClassification ={classification} availableLots = {availableLots} totalLots ={totalLots} lat = {lat} lng = {lng}/>
                 </div>
@@ -275,11 +282,4 @@ const CarparkDetails = () =>{
         </div>
     );
 }
-/* <div className = "YT">
-     <iframe width="560" height="315" src="https://www.youtube.com/embed/onOY6tg3y24"
-             title="YouTube video player" frameBorder="0"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-             allowFullScreen/>
- </div>
-*/
 export default CarparkDetails;

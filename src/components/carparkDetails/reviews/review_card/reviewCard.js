@@ -6,6 +6,7 @@ import {Avatar} from 'antd';
 import { UserOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import Button from 'antd/es/button';
 
+// This component renders one review, which is passed in as props
 class ReviewCard extends React.Component{
     constructor(props) {
         super(props);
@@ -26,6 +27,8 @@ class ReviewCard extends React.Component{
         this.downvote = this.downvote.bind(this);
         this.sendVote = this.sendVote.bind(this);
     }
+
+    // function to upvote/downvote to the back end API
     sendVote(num, neutral){
         const requestOptions = {
             method: 'POST',
@@ -40,6 +43,8 @@ class ReviewCard extends React.Component{
                 console.log(err);
             });
     }
+
+    // If the user clicks on the upvote button, will have to check if there was a downvote before, then override the downvote with an upvote
     upvote(){
         if(this.state.Downvoted){
             this.setState({
@@ -60,6 +65,7 @@ class ReviewCard extends React.Component{
         }
     }
 
+    // If the user clicks on the downvote button, will have to check if there was a upvote before, then override the upvote with an downvote
     downvote(){
         if(this.state.Upvoted){
             this.setState({
@@ -81,6 +87,7 @@ class ReviewCard extends React.Component{
     }
 
     render(){
+        // Disable the function to vote if the user is not logged in or has voted before
         let disableUpVote =  !this.state.LoggedIn || this.state.VotedBefore;
         let disableDownVote =  !this.state.LoggedIn || this.state.VotedBefore;
         return(

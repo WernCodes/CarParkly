@@ -5,6 +5,8 @@ import { SearchOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
 
+
+// used in the "home" component. For future development of a search function.
 function SearchBar(props) {
     return(
     <>

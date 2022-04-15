@@ -32,13 +32,12 @@ const center = {
     lng: 103.794600,
 };
 
+// component to load google maps view with google places search bar
 export default function MapView(props) {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
         libraries,
     });
-    //const list = [{lat: 1.3457447949869212,lng: 103.95396365530868}, {lat: 1.3452753765268728,lng: 103.95461801343814}]
-    //const list = props.markers
     const [locationMarker, setLocationMarkers] = React.useState([]);
     const [carparkMarkers, setCarparkMarkers] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
@@ -152,6 +151,7 @@ function Search({ panTo }) {
         clearSuggestions,
     } = usePlacesAutocomplete({
         requestOptions: {
+            // lat long of center of singapore to further restrict the search results
             location: { lat: () => 1.341523, lng: () => 103.794600 },
             radius: 50 * 1000,
         },

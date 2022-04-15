@@ -5,11 +5,10 @@ import SearchFilters from "./search_filters/searchFilters";
 import CarparkList from "./carpark_list/carparkList";
 import { Radio } from 'antd';
 
-
-
-import MapView from "./gMapsView/mapView";
+import MapView from "./mapView/mapView";
 import Animate from "rc-animate";
 
+// Component that renders the navigation page for users to input their destination and view relevant car parks
 class Navigation extends React.Component{
     carparkList;
     defaultSliderValue=250;
@@ -36,6 +35,7 @@ class Navigation extends React.Component{
         console.log(e);
     }
 
+    // after clicking on a sort criteria, the component should refresh to get a newly ordered list of car parks
     handleSort = e => {
         console.log(e.target.value)
         this.setState({
@@ -48,6 +48,7 @@ class Navigation extends React.Component{
     sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
+    //API call to refresh the list of relevant car parks based on sorting criteria
     async refreshCarparks(sortKey) {
         console.log(this.state.lat,this.state.lng)
         await this.setState({showList: false, carparkList: []})
@@ -62,6 +63,7 @@ class Navigation extends React.Component{
             apiUrl = this.costAPI;
         await this.sleep(this.pauseTime);
 
+        // API call to get the list of relevant car parks based on destination input
         async function getClosestCarparks(lat, lng, radius, url) {
             const requestOptions = {
                 method: 'POST',
@@ -100,6 +102,7 @@ class Navigation extends React.Component{
         })
     }
 
+    // when the radius slider is changed, need to retrieve a new list of car parks
     async handleRadiusChange(radius){
         console.log('radius', radius)
         await this.setState({showList:false, carparkList: []});
@@ -153,6 +156,7 @@ class Navigation extends React.Component{
         }
     }
 
+    // after input of destination location, retrieve the list of relevant car parks
     async handleLocation(lat,lng) {
         console.log(lat,lng)
         console.log(this.distanceAPI);
@@ -211,6 +215,7 @@ class Navigation extends React.Component{
     }
 
     render() {
+        // Radio buttons for sorting criteria
         const menu = (
             <Radio.Group onChange={this.handleSort} value={this.state.sortKey} optionType="button" buttonStyle="solid" size="middle">
                 <Radio.Button value={"Distance"}>Distance</Radio.Button>

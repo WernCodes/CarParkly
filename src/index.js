@@ -7,6 +7,7 @@ import CarparkDetails from "./components/carparkDetails/carparkDetails";
 import CostCalculator from "./components/costCalculator/costCalculator";
 import Register from "./components/register/register";
 
+// Entry point of the web application
 class Carparkly extends React.Component {
     render() {
         document.body.style.backgroundColor = "#313896";

@@ -3,14 +3,12 @@ body {
     background-color: #41b3a3;
     font: 14px "Century Gothic", Futura, sans-serif;
 }
-
 .navigationPage{
 
 }
 .pageBody{
     padding: 25px 10% 10%;
 }
-
 .searchSection{
     display:flex;
     margin-bottom: 25px;
@@ -24,7 +22,6 @@ body {
     float:  left;
     clear: left;
 }
-
 .sortText{
     margin-right: 1rem;
     font-size: 1.5rem;
@@ -32,31 +29,14 @@ body {
 .ant-radio-button-wrapper{
     font-size: 1rem;
 }
-
 .sortBox{
     display: flex;
     color: white;
     align-items: end;
 }
-
-.menuItems{
-    font-size: 1rem;
-}
-
-.destinationInput{
-    max-width:20%;
-    min-width:100px;
-    padding:2px;
-    margin:3px;
-    border-radius: 2px;
-    float:  left;
-    clear: left;
-}
-
 .carparkSection{
     display: flex;
 }
-
 .carparks{
     display: flex;
     flex-direction: column;
@@ -65,15 +45,12 @@ body {
     width: 30%;
     padding-left: 2rem;
 }
-
 .carparkBox{
     padding-top: 15px;
 }
-
 .gMaps{
     float: right;
 }
-
 .header {
     display: flex;
     justify-content: center;

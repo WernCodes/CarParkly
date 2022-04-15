@@ -9,6 +9,7 @@ import Linkify from 'react-linkify';
 import Animate from "rc-animate";
 import moment from "moment";
 
+// component that loads the cost calculator page
 const CostCalculator = () =>{
     let calculatedSection;
     let ratesSection;
@@ -33,8 +34,7 @@ const CostCalculator = () =>{
         address: null,
     };
 
-    const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+    // whenever input time is changed, make sure timeIn<timeOut, else disable button
     const onChangeStartTime = time => {
         setStartTime(time);
         if(endTime){
@@ -52,6 +52,7 @@ const CostCalculator = () =>{
         }
     };
 
+    // retrieve the rates of the car park for display
     useEffect(() => {
         const requestOptions = {
             method: 'POST',
@@ -108,7 +109,6 @@ const CostCalculator = () =>{
 
     if (isLoading) {
         return <div className="costCalculator">
-
         </div>;
     }
 
@@ -118,7 +118,7 @@ const CostCalculator = () =>{
     }
 
     if(state.agency==='HDB'){
-        ratesSection = (<div className='URASingleRate'>
+        ratesSection = (<div className='CarParkSingleRate'>
                 {Object.keys(rates).map((key, index) => (
                     <p key={index}>{key} : {rates[key]}</p>
                 ))}
@@ -127,7 +127,7 @@ const CostCalculator = () =>{
         )
     }else if (state.agency==='URA'){
         ratesSection =rates.map((rate) => {
-             return <div className="URASingleRate">
+             return <div className="CarParkSingleRate">
                 {Object.keys(rate).map((key, index) => (
                     <p key={index}>{key} : {rate[key]}</p>
                 ))}
@@ -136,7 +136,7 @@ const CostCalculator = () =>{
         )
     }else if (state.agency==='LTA'){
         ratesSection =rates.map((rate) => {
-                return <div className="URASingleRate">
+                return <div className="CarParkSingleRate">
                     {Object.keys(rate).map((key, index) => (
                         <p key={index}>{key} : {rate[key]}</p>
                     ))}
@@ -145,7 +145,9 @@ const CostCalculator = () =>{
         )
     }
 
+    // if the cost has been calculated and returned from the API call
     if(calculated){
+        // if there are remarks from the API response
         if (remarks){
             calculatedSection =(
                 <div className="calculatedCost">

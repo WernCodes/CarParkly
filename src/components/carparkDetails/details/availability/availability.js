@@ -2,9 +2,8 @@ import React from 'react';
 import './availability.css'
 import {Statistic} from "antd";
 
+// This component loads the availability of the car park. Depending on the classification, it will be color coded accordingly.
 function Availability(props) {
-    //var result = await retrieveCarparkAvailability(props.carparkId, props.agency);
-    // console.log(result);
     let availabilityClass;
     switch (props.lotClassification) {
         case 'Open':
@@ -21,7 +20,6 @@ function Availability(props) {
             break;
     }
 
-    //if(result['Availability'] === 'Open'){
     if(!(Object.is(props.availableLots, undefined)||Object.is(props.availableLots, null)) && !(Object.is(props.totalLots, undefined)||Object.is(props.totalLots, null))) {
         return (
             <div id="availability" className={availabilityClass}>
@@ -31,7 +29,6 @@ function Availability(props) {
     }else{
         return (
             <div className="availabilityCard">
-
             </div>
         );
     }

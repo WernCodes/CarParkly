@@ -5,8 +5,7 @@ import Availability from "./availability/availability";
 import NaviButtonWithParamsFunction from "../../shared/navi_button_with_params";
 import CarparkVideoSearch from "./carparkVideoSearch/carparkVideoSearch";
 
-
-
+// This component loads the details of a car park, it calls its sub components to render
 class Details extends React.Component{
     constructor(props){
         super(props);

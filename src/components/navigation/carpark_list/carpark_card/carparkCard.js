@@ -3,6 +3,7 @@ import './carparkCard.css';
 import ButtonFunction from "../../../shared/button";
 import NaviButtonWithParamsFunction from "../../../shared/navi_button_with_params";
 
+// component that loads a car park card within the list of car parks
 class CarparkCard extends React.Component{
     constructor(props) {
         super(props);
@@ -17,6 +18,7 @@ class CarparkCard extends React.Component{
         this.handleNavigateClick = this.handleNavigateClick.bind(this)
     }
 
+    // open a new browser tab for google maps navigation
     handleNavigateClick(){
         const values = this.state.Location.split(" ");
         window.open("https://www.google.com/maps/dir/?api=1&destination="+values[0]+"%2C"+values[1] );
