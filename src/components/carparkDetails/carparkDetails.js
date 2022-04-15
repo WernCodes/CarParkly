@@ -222,7 +222,6 @@ const CarparkDetails = () =>{
             .then(response => response.json())
             .then(json => {
                 // body
-                console.log(json)
                 if(json['status']==="success"){
                     console.log("login success:", json)
                     localStorage.clear()

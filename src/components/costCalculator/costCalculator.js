@@ -79,7 +79,6 @@ const CostCalculator = () =>{
         const duration = moment.duration(endTime.diff(startTime));
         var mins = Math.round(duration.asMinutes());
         if (mins===0){
-            console.log("in here")
             setError('Start time must be before end time!')
             return
         }

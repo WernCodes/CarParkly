@@ -31,9 +31,6 @@ class Navigation extends React.Component{
         this.availabilityAPI= process.env.REACT_APP_API_URL+"/api/carparksByAvailability"
         this.costAPI= process.env.REACT_APP_API_URL+"/api/carparksByCost"
     }
-    handleSearch(e){
-        console.log(e);
-    }
 
     // after clicking on a sort criteria, the component should refresh to get a newly ordered list of car parks
     handleSort = e => {
@@ -158,11 +155,6 @@ class Navigation extends React.Component{
 
     // after input of destination location, retrieve the list of relevant car parks
     async handleLocation(lat,lng) {
-        console.log(lat,lng)
-        console.log(this.distanceAPI);
-        console.log(this.availabilityAPI);
-        console.log(this.costAPI);
-
         await this.setState({lat: lat, lng: lng, showList: false, carparkList: []})
         await this.sleep(this.pauseTime);
         const radius = this.state.radius/1000;

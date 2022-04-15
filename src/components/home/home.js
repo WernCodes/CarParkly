@@ -12,10 +12,6 @@ class Home extends React.Component{
         super(props);
     }
 
-    handleClick(e){
-        console.log('I am clicked!');
-    }
-
     handleSearch(e){
         console.log(e);
     }
