@@ -181,7 +181,7 @@ const CarparkDetails = () =>{
     // This section determines how to render the rates of the car park based on the agency
     if(rates) {
         if (state.agency === 'HDB') {
-            ratesSection = (<div className='URASingleRate'>
+            ratesSection = (<div className='CarParkSingleRate'>
                     {Object.keys(rates).map((key, index) => (
                         <p key={index}>{key} : {rates[key]}</p>
                     ))}
@@ -191,7 +191,7 @@ const CarparkDetails = () =>{
             )
         } else if (state.agency === 'URA') {
             ratesSection = rates.map((rate) => {
-                    return <div className="URASingleRate">
+                    return <div className="CarParkSingleRate">
                         {Object.keys(rate).map((key, index) => (
                             <p key={index}>{key} : {rate[key]}</p>
                         ))}
@@ -200,7 +200,7 @@ const CarparkDetails = () =>{
             )
         } else if (state.agency === 'LTA') {
             ratesSection = rates.map((rate) => {
-                    return <div className="URASingleRate">
+                    return <div className="CarParkSingleRate">
                         {Object.keys(rate).map((key, index) => (
                             <p key={index}>{key} : {rate[key]}</p>
                         ))}
